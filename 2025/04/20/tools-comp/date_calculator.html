@@ -27,7 +27,7 @@
             padding: 8px;
             font-size: 16px;
         }
-        #result {
+        #result, #diffResult {
             margin-top: 20px;
             padding: 12px;
             background-color: #fff;
@@ -40,6 +40,8 @@
 </head>
 <body>
     <h1>📅 日期计算器</h1>
+
+    <!-- 原来的功能 -->
     <div class="input-group">
         <label for="startDate">起始日期（如 2024.01.01）</label>
         <input type="text" id="startDate" placeholder="请输入日期（YYYY.MM.DD）">
@@ -59,6 +61,19 @@
     </div>
 
     <div id="result">请输入完整信息以计算</div>
+
+    <!-- 新功能：两个日期之间的差值 -->
+    <div class="input-group">
+        <label for="date1">日期一（如 2024.01.01）</label>
+        <input type="text" id="date1" placeholder="请输入日期（YYYY.MM.DD）">
+    </div>
+
+    <div class="input-group">
+        <label for="date2">日期二（如 2024.01.10）</label>
+        <input type="text" id="date2" placeholder="请输入日期（YYYY.MM.DD）">
+    </div>
+
+    <div id="diffResult">请输入两个日期以计算差值</div>
 
     <script>
         function parseDate(str) {
@@ -101,10 +116,31 @@
             resultDiv.style.color = 'green';
         }
 
-        // 自动在输入后计算
+        function calculateDiff() {
+            const date1 = parseDate(document.getElementById('date1').value);
+            const date2 = parseDate(document.getElementById('date2').value);
+            const diffDiv = document.getElementById('diffResult');
+
+            if (!date1 || !date2) {
+                diffDiv.textContent = '请输入两个有效日期';
+                diffDiv.style.color = 'red';
+                return;
+            }
+
+            const diffMs = Math.abs(date1 - date2);
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+            diffDiv.textContent = `日期差值：${diffDays} 天`;
+            diffDiv.style.color = 'green';
+        }
+
+        // 自动计算
         document.getElementById('startDate').addEventListener('input', calculate);
         document.getElementById('days').addEventListener('input', calculate);
         document.getElementById('operation').addEventListener('change', calculate);
+
+        document.getElementById('date1').addEventListener('input', calculateDiff);
+        document.getElementById('date2').addEventListener('input', calculateDiff);
     </script>
 </body>
 </html>
