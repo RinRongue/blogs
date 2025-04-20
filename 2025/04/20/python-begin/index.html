@@ -548,7 +548,7 @@
 </table>
 <p>示例代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&quot;&#123;0:=^20&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;PYTHON&quot;</span>)</span><br><span class="line"><span class="string">&#x27;======PYTHON======&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&quot;&#123;0:*^20&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;BIT&quot;</span>)</span><br><span class="line"><span class="string">&#x27;*******BIT*******&#x27;</span></span><br></pre></td></tr></table></figure>
-<p><img src="./DCIM/string0.png" alt=""></p>
+<p><img src="./string0.png" alt=""></p>
 <h2 id="%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E7%AC%A6" tabindex="-1" id="字符串操作符">字符串操作符</h2>
 <p>也可用于其它序列类型</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x+y <span class="comment">#连接xy</span></span><br><span class="line">x*n ; n*x <span class="comment">#复制n次x</span></span><br><span class="line">x <span class="keyword">in</span> s <span class="comment">#判断x是否为s子串，返回布尔值</span></span><br></pre></td></tr></table></figure>
@@ -1285,7 +1285,7 @@ pass 占位符，不执行任何操作</p>
 </table>
 <h2 id="turtle%E5%BA%93" tabindex="-1" id="turtle库">turtle库</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">turtlre.setup(width,height,startx,starty) <span class="comment">#设置窗体大小位置，后两项非必须</span></span><br><span class="line">turtle.pensize(<span class="built_in">len</span>)</span><br><span class="line">turtle.pencolor(a,b,c) <span class="comment">#可用整数或小数或名称  </span></span><br><span class="line">turtle.colormode(mode) <span class="comment">#mode=1.0 或 255  </span></span><br><span class="line">turtle.penup()  </span><br><span class="line">turtle.pendown()</span><br><span class="line">turtle.clear() <span class="comment">#清空画面</span></span><br><span class="line">turtle.fd(<span class="built_in">len</span>) <span class="comment">#往前爬len像素</span></span><br><span class="line">turtle.dot(r,<span class="string">&#x27;color&#x27;</span>) <span class="comment">#原地画点</span></span><br><span class="line">turtle.goto(x,y)  </span><br><span class="line">turtle.circle(<span class="built_in">len</span>,angle)  <span class="comment">#画angle度直径len的圆  </span></span><br><span class="line">turtle.seth(angle) <span class="comment">#逆时针  </span></span><br><span class="line">turtle.left(angle) <span class="comment">#往左转  </span></span><br><span class="line">turtle.right(angle)</span><br><span class="line">turtle.speed() <span class="comment">#速度，越大越快，0最快</span></span><br><span class="line">turtle.hideturtle() <span class="comment">#绘图时不显示turtle</span></span><br><span class="line">turtle.write(<span class="built_in">format</span>, font=(<span class="string">&quot;MIcrosoft YaHei UI&quot;</span>, <span class="number">12</span>, <span class="string">&quot;normal&quot;</span>)) <span class="comment">#写字乌龟</span></span><br><span class="line">turtle.done()</span><br></pre></td></tr></table></figure>
-<p><img src="./DCIM/turtle0.jpg" alt=""></p>
+<p><img src="./turtle0.jpg" alt=""></p>
 <h2 id="random%E5%BA%93" tabindex="-1" id="random库">random库</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#基本随机数函数</span></span><br><span class="line">random.seed() <span class="comment">#初始化随机数种子，不调用则默认为当前系统时间</span></span><br><span class="line">random.random() <span class="comment">#生成[0.0,1.0)之间的double数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#扩展随机数函数</span></span><br><span class="line">random.randint(a,b) <span class="comment">#生成[a,b]之间的int</span></span><br><span class="line">random.randrange(m,n[,k]) <span class="comment">#生成[m,n)之间以k为步长的int; random.randrange(10,100，10) &gt; 20</span></span><br><span class="line">random.getrandbits(k) <span class="comment">#生成k bit长的随机int 16&gt;37885</span></span><br><span class="line">random.uniform(a,b) <span class="comment">#生成[a,b]之间的随机double</span></span><br><span class="line">random.choice(seq) <span class="comment">#从序列中随机选取一个元素</span></span><br><span class="line">random.shuffle(seq) <span class="comment">#将seq中元素随机排列，返回打乱后的序列</span></span><br></pre></td></tr></table></figure>
 <h2 id="secrets%E5%BA%93" tabindex="-1" id="secrets库">secrets库</h2>
@@ -1359,7 +1359,7 @@ pass 占位符，不执行任何操作</p>
 </table>
 <h2 id="wordcloud%E5%BA%93" tabindex="-1" id="wordcloud库">wordcloud库</h2>
 <p>词云展示库<br>
-<img src="./DCIM/worldcloud0.png" alt=""><br>
+<img src="./worldcloud0.png" alt=""><br>
 w=world.WorldCloud() #注意大小写</p>
 <table>
 <thead>
@@ -1471,7 +1471,7 @@ w=world.WorldCloud() #注意大小写</p>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/blogs/2025/04/20/python-beginner/">http://example.com/blogs/2025/04/20/python-beginner/</a>
+                    <a href="http://example.com/blogs/2025/04/20/python-begin/">http://example.com/blogs/2025/04/20/python-begin/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1556,13 +1556,13 @@ w=world.WorldCloud() #注意大小写</p>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blogs/2025/04/20/python-begin/">
+                <a href="/blogs/2025/04/20/tools-comp/">
                     <div class="card-image">
                         
                         
-                        <img src="/blogs/medias/featureimages/23.jpg" class="responsive-img" alt="python入门">
+                        <img src="/blogs/medias/featureimages/3.jpg" class="responsive-img" alt="tools_comp">
                         
-                        <span class="card-title">python入门</span>
+                        <span class="card-title">tools_comp</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1593,13 +1593,13 @@ w=world.WorldCloud() #注意大小写</p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blogs/2025/04/17/python-spider/">
+                <a href="/blogs/2025/04/20/python-beginner/">
                     <div class="card-image">
                         
                         
-                        <img src="/blogs/medias/featureimages/2.jpg" class="responsive-img" alt="python-spider">
+                        <img src="/blogs/medias/featureimages/23.jpg" class="responsive-img" alt="python入门">
                         
-                        <span class="card-title">python-spider</span>
+                        <span class="card-title">python入门</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1610,7 +1610,7 @@ w=world.WorldCloud() #注意大小写</p>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-20
                             </span>
                         <span class="publish-author">
                             
