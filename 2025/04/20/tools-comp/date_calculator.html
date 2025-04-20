@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>日期计算器</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 30px;
+            max-width: 400px;
+            margin: auto;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 4px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 18px;
+            color: green;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>📅 日期计算器</h1>
+    <div class="input-group">
+        <label for="startDate">起始日期（如 2024.01.01）</label>
+        <input type="text" id="startDate" placeholder="请输入日期（YYYY.MM.DD）">
+    </div>
+
+    <div class="input-group">
+        <label for="operation">操作（加 / 减）</label>
+        <select id="operation">
+            <option value="+">+</option>
+            <option value="-">-</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="days">天数</label>
+        <input type="number" id="days" placeholder="请输入天数">
+    </div>
+
+    <div id="result">请输入完整信息以计算</div>
+
+    <script>
+        function parseDate(str) {
+            const parts = str.trim().split('.');
+            if (parts.length !== 3) return null;
+            const [y, m, d] = parts.map(Number);
+            if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
+            return new Date(y, m - 1, d);
+        }
+
+        function formatDate(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}.${m}.${d}`;
+        }
+
+        function calculate() {
+            const start = parseDate(document.getElementById('startDate').value);
+            const op = document.getElementById('operation').value;
+            const days = parseInt(document.getElementById('days').value);
+
+            const resultDiv = document.getElementById('result');
+
+            if (!start || isNaN(days)) {
+                resultDiv.textContent = '请输入正确的日期和天数';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+            let newDate = new Date(start);
+
+            if (op === '+') {
+                newDate.setDate(newDate.getDate() + days);
+            } else {
+                newDate.setDate(newDate.getDate() - days);
+            }
+
+            resultDiv.textContent = `计算结果：${formatDate(newDate)}（星期${"日一二三四五六"[newDate.getDay()]}）`;
+            resultDiv.style.color = 'green';
+        }
+
+        // 自动在输入后计算
+        document.getElementById('startDate').addEventListener('input', calculate);
+        document.getElementById('days').addEventListener('input', calculate);
+        document.getElementById('operation').addEventListener('change', calculate);
+    </script>
+</body>
+</html>
