@@ -9,7 +9,8 @@
 
 库
 
-opencvpython
+opencv-python
+-图像处理
 pillow
 pyautogui
 pynput
@@ -20,12 +21,10 @@ time
 
 库
 opencvpython
-pillow
-pyautogui
-pynput
-pyperclip
-time
-获取时间">
+官方文档
+Github
+安装依赖库 numpy,matplotlib
+使">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -418,7 +417,8 @@ time
 <ul>
 <li><a href="#%E5%BA%93">库</a>
 <ul>
-<li><a href="#opencvpython">opencvpython</a></li>
+<li><a href="#opencvpython">opencv-python</a><br>
+-<a href="#%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86">图像处理</a></li>
 <li><a href="#pillow">pillow</a></li>
 <li><a href="#pyautogui">pyautogui</a></li>
 <li><a href="#pynput">pynput</a></li>
@@ -429,10 +429,46 @@ time
 </ul>
 <h1 id="%E5%BA%93" tabindex="-1">库</h1>
 <h2 id="opencvpython" tabindex="-1" id="opencvpython">opencvpython</h2>
+<p><a target="_blank" rel="noopener" href="https://pypi.org/project/opencv-python/">官方文档</a><br>
+<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv-python">Github</a><br>
+安装依赖库 numpy,matplotlib<br>
+使用<code>import cv2</code>导入</p>
+<h3 id="%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86" tabindex="-1" id="图像处理">图像处理</h3>
+<p>读取图像<code>img = cv2.imread('图片路径')</code><br>
+显示图像</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cv2.imshow(<span class="string">&#x27;Image&#x27;</span>, img) <span class="comment">#图片标题名，图片</span></span><br><span class="line">cv2.waitKey(<span class="number">0</span>)  <span class="comment"># 0表示一直等待直到按下任意键</span></span><br><span class="line">cv2.destroyAllWindows()  <span class="comment"># 关闭所有窗口</span></span><br></pre></td></tr></table></figure>
+<p>获取图像属性<code>height, width, channels = img.shape #长、宽、通道数</code><br>
+保存图像<code>cv2.imwrite('图片路径', img)</code><br>
+<br><br>
+改变尺寸<code>resized = cv2.resize(img, (300, 300))</code><br>
+旋转<code>rotated = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)</code><br>
+水平翻转<code>flipped = cv2.flip(img, 1)</code><br>
+灰度转换<code>gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</code><br>
+转为HSV色彩<code>hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</code><br>
+<br><br>
+图像绘制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#原点位于左上角</span></span><br><span class="line"><span class="comment">#绘制直线：图像，起点坐标，终点坐标，颜色，线条粗细</span></span><br><span class="line">cv2.line(img, (<span class="number">0</span>, <span class="number">0</span>), (<span class="number">100</span>, <span class="number">100</span>), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line"><span class="comment">#绘制矩形：图像，起点坐标，终点坐标，颜色，线条粗细</span></span><br><span class="line">cv2.rectangle(img, (<span class="number">0</span>, <span class="number">0</span>), (<span class="number">200</span>, <span class="number">200</span>), (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">5</span>)</span><br><span class="line"><span class="comment">#绘制圆：图像，圆心，半径，颜色，线宽（正整数代表宽度，-1代表填充）</span></span><br><span class="line">cv2.circle(img, (<span class="number">50</span>, <span class="number">50</span>), <span class="number">25</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), -<span class="number">1</span>)</span><br><span class="line"><span class="comment">#绘制文本：图像，文本，起始位置（左下角），字体类型，缩放倍数（越大文字越大）,颜色，粗细，线型</span></span><br><span class="line">cv2.putText(img, <span class="string">&#x27;Hello, OpenCV!&#x27;</span>, (<span class="number">10</span>, <span class="number">30</span>), </span><br><span class="line">            cv2.FONT_HERSHEY_SIMPLEX, <span class="number">1</span>, (<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>), <span class="number">2</span>,&lt;cv2.LINE_AA&gt;)</span><br><span class="line"><span class="comment">#字体有FONT_HERSHEY_SCRIPT_SIMPLEX,FONT_HERSHEY_COMPLEX等</span></span><br></pre></td></tr></table></figure>
+<p>边缘检测<code>edges = cv2.Canny(gray_img, 50, 150)</code><br>
+高斯模糊<code>blur = cv2.GaussianBlur(img, (5,5), 0)</code><br>
+中值滤波<code>median = cv2.medianBlur(img, 5)</code><br>
+双边滤波<code>bilateral = cv2.bilateralFilter(img, 9, 75, 75)</code><br>
+分离RGB通道<code>b, g, r = cv2.split(img)</code><br>
+合并通道（交换颜色）<code>merged = cv2.merge([r, g, b])</code><br>
+<br><br>
+轮廓检测<code>contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</code><br>
+轮廓绘制<code>cv2.drawContours(img, contours, -1, (0,255,0), 2)</code><br>
+<br><br>
+图像几何变换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">M = cv2.getRotationMatrix2D((width//<span class="number">2</span>, height//<span class="number">2</span>), <span class="number">45</span>, <span class="number">1</span>) <span class="comment">#旋转矩阵</span></span><br><span class="line">rotated = cv2.warpAffine(img, M, (width, height))</span><br></pre></td></tr></table></figure>
 <h2 id="pillow" tabindex="-1" id="pillow">pillow</h2>
 <h2 id="pyautogui" tabindex="-1" id="pyautogui">pyautogui</h2>
 <h2 id="pynput" tabindex="-1" id="pynput">pynput</h2>
 <h2 id="pyperclip" tabindex="-1" id="pyperclip">pyperclip</h2>
+<p>linux使用前需安装剪切板工具xclip或xsel<br>
+<code>sudo apt install xclip</code><br>
+<br><br>
+文本送入剪切板<code>pyperclip.copy(&quot;Hello Python&quot;)</code><br>
+读取剪切板<code>text = pyperclip.paste()</code></p>
 <h2 id="time" tabindex="-1" id="time">time</h2>
 <p><span style="text-align: center; display: block;">获取时间</span><br>
 <code>time.time()</code> #获取当前float值的时间戳<br>
