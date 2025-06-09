@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>TXT字幕段落合并转换工具</title>
+    <style>
+        body { font-family: "微软雅黑", Arial, sans-serif; margin: 40px; background: #f7f7f7; }
+        .container { background: #fff; padding: 30px 40px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 2px 8px #ccc; }
+        h2 { color: #2d7be5; }
+        h3 { color: #2d7be5; }
+        h3 a {
+            color: #2d7be5;
+            text-decoration: none;
+        }
+        h3 a:hover {
+            text-decoration: underline;
+        }
+        .desc { color: #444; margin-bottom: 20px; }
+        .example { background: #f0f4fa; border-left: 4px solid #2d7be5; padding: 10px 20px; margin-bottom: 20px; font-family: Consolas, monospace; }
+        .drop-area { border: 2px dashed #2d7be5; border-radius: 8px; padding: 30px; text-align: center; color: #888; margin-bottom: 20px; background: #fafdff; cursor: pointer; }
+        .drop-area.dragover { background: #e3f0ff; }
+        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
+        .btn { background: #2d7be5; color: #fff; border: none; padding: 10px 15px; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .btn:disabled { background: #aaa; cursor: not-allowed; }
+        .output { margin-top: 30px; }
+        textarea { width: 100%; min-height: 120px; font-family: Consolas, monospace; font-size: 15px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; background: #fafdff; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>TXT段落合并转换工具(不支持中文)</h2>
+    <h3><a href="https://chromewebstore.google.com/detail/youtube-%E5%AD%97%E5%B9%95%E4%B8%8B%E8%BD%BD%E5%99%A8/mjmghnkcbdmdbkolinkcbapglcinoahd" target="_blank" rel="noopener noreferrer">可配合YouTube字幕下载器使用（点击跳转到浏览器插件界面）</a></h3>
+    <div class="desc">
+        本工具可将字幕类TXT文件的每一个段落都整合为完整的句子，减少视频学习时的强迫症：<br>
+        除第一段外，每段第一个句号（.）及之前内容合并到上一段末尾，并自动处理时间戳和空行。<br>
+        支持拖拽或点击选择TXT文件，转换后可直接下载。<br>
+        不支持srt因为无法修改的时间戳会导致字幕与视频对应不上
+    </div>
+    <div><b>示例：</b></div>
+    <div class="example">
+        <b>原始：</b><br>
+        0:00<br>
+        Breaking news. Protesters and federal agents clashing in Southern California<br><br>
+        0:04<br>
+        over recent ICE arrests. This video showing the violent confrontations<br>
+        <br>
+        <b>转换后：</b><br>
+        0:00<br>
+        Breaking news. Protesters and federal agents clashing in Southern California over recent ICE arrests.<br>
+        <br>
+        0:04<br>
+        This video showing the violent confrontations<br>
+    </div>
+    <div id="drop-area" class="drop-area">
+        拖拽TXT文件到此处，或点击选择文件
+        <input type="file" id="fileElem" accept=".txt" style="display:none">
+    </div>
+    <div class="btn-group">
+        <button class="btn" id="convertTxtBtn" disabled>转换并下载TXT</button>
+        <button class="btn" id="convertPdfBtn" disabled>转换并下载PDF</button>
+    </div>
+    <div class="output" id="outputDiv" style="display:none;">
+        <label>转换结果预览：</label>
+        <textarea id="outputText" readonly></textarea>
+    </div>
+</div>
+<script>
+    // Make jsPDF globally available for easier use
+    const { jsPDF } = window.jspdf;
+
+    // 处理拖拽和点击
+    const dropArea = document.getElementById('drop-area');
+    const fileElem = document.getElementById('fileElem');
+    const convertTxtBtn = document.getElementById('convertTxtBtn');
+    const convertPdfBtn = document.getElementById('convertPdfBtn');
+    let fileContent = '';
+    let fileName = '';
+    let convertedOutput = '';
+
+    dropArea.addEventListener('click', () => fileElem.click());
+    dropArea.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropArea.classList.add('dragover');
+    });
+    dropArea.addEventListener('dragleave', e => {
+        e.preventDefault();
+        dropArea.classList.remove('dragover');
+    });
+    dropArea.addEventListener('drop', e => {
+        e.preventDefault();
+        dropArea.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+    });
+    fileElem.addEventListener('change', e => {
+        handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+        if (!files.length) return;
+        const file = files[0];
+        if (!file.name.endsWith('.txt')) {
+            alert('请上传TXT文件');
+            return;
+        }
+        fileName = file.name.replace(/\.txt$/i, '');
+        const reader = new FileReader();
+        reader.onload = e => {
+            fileContent = e.target.result;
+            convertTxtBtn.disabled = false;
+            convertPdfBtn.disabled = false;
+        };
+        reader.readAsText(file, 'utf-8');
+    }
+
+    // 段落合并转换核心逻辑 (unchanged)
+    function convertTxt(content) {
+        let paragraphs = [];
+        let paragraph = [];
+        content.split(/\r?\n/).forEach(line => {
+            if (line.trim() === '') {
+                if (paragraph.length) {
+                    paragraphs.push(paragraph);
+                    paragraph = [];
+                }
+            } else {
+                paragraph.push(line);
+            }
+        });
+        if (paragraph.length) paragraphs.push(paragraph);
+
+        let result = [];
+        for (let idx = 0; idx < paragraphs.length; idx++) {
+            let para = paragraphs[idx];
+            if (!para.length) continue;
+            let timestamp = para[0];
+            let contentLines = para.slice(1);
+            let text = contentLines.join(' ').trim();
+            if (idx === 0) {
+                result.push(`${timestamp}\n${text}\n`);
+                continue;
+            }
+            let dotIdx = text.indexOf('.');
+            let movePart, remainPart;
+            if (dotIdx !== -1) {
+                movePart = text.slice(0, dotIdx + 1);
+                remainPart = text.slice(dotIdx + 1).trimStart();
+            } else {
+                movePart = text;
+                remainPart = '';
+            }
+            let prev = result.pop();
+            prev = prev.replace(/\n+$/, '');
+            prev = prev + ' ' + movePart + '\n\n';
+            result.push(prev);
+            if (remainPart) {
+                result.push(`${timestamp}\n${remainPart}\n`);
+            }
+        }
+        return result.join('');
+    }
+
+    // Common function to perform conversion and display preview
+    function performConversion() {
+        if (!fileContent) return;
+        convertedOutput = convertTxt(fileContent);
+        document.getElementById('outputDiv').style.display = '';
+        document.getElementById('outputText').value = convertedOutput;
+    }
+
+    // Event listener for "转换并下载TXT" button
+    convertTxtBtn.onclick = function() {
+        performConversion();
+        if (!convertedOutput) return;
+
+        const blob = new Blob([convertedOutput], {type: 'text/plain'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName + '(output).txt';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        }, 100);
+    };
+
+    // Event listener for "转换并下载PDF" button (Modified for multi-page)
+    convertPdfBtn.onclick = function() {
+        performConversion();
+        if (!convertedOutput) return;
+
+        const doc = new jsPDF();
+        const lineHeight = 7; // Approximate line height in mm (adjust as needed)
+        const margin = 10; // Page margin in mm
+        let y = margin; // Starting Y position
+
+        // Split text into lines, accounting for potential Chinese characters.
+        // jsPDF's splitTextToSize is good, but for full Chinese support,
+        // you'd typically need to embed a font that supports CJK characters.
+        // For this example, we'll assume a basic font or rely on system fallbacks.
+        // If Chinese characters are garbled, font embedding is the next step.
+        const lines = doc.splitTextToSize(convertedOutput, doc.internal.pageSize.width - 2 * margin);
+
+        lines.forEach(line => {
+            if (y + lineHeight > doc.internal.pageSize.height - margin) {
+                // If adding the next line overflows the page, add a new page
+                doc.addPage();
+                y = margin; // Reset Y position for the new page
+            }
+            doc.text(line, margin, y);
+            y += lineHeight;
+        });
+
+        doc.save(fileName + '(output).pdf');
+    };
+</script>
+</body>
+</html>
