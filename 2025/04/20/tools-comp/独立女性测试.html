@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你是否是独立女性？</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f0ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #7b68ee;
+            margin-bottom: 30px;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #ff9a9e, #a1c4fd);
+            border-radius: 3px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 16px;
+            padding: 0 20px;
+        }
+        
+        .question-container {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #f9f9ff;
+            border-radius: 10px;
+            border-left: 4px solid #7b68ee;
+        }
+        
+        .question {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .option {
+            flex: 1;
+            text-align: center;
+            padding: 10px 5px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .option:hover {
+            background-color: #f0f0ff;
+            border-color: #c0c0ff;
+        }
+        
+        .option.selected {
+            background-color: #e6e6ff;
+            border-color: #7b68ee;
+            color: #7b68ee;
+            font-weight: bold;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 200px;
+            margin: 40px auto 20px;
+            padding: 14px;
+            background: linear-gradient(to right, #7b68ee, #9370db);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(123, 104, 238, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(123, 104, 238, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #f9f9ff;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #7b68ee;
+            margin: 15px 0;
+        }
+        
+        .level {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .description {
+            text-align: left;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #7b68ee;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #a1c4fd);
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .options {
+                flex-direction: column;
+            }
+            
+            .option {
+                margin-bottom: 8px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>你是否是独立女性？</h1>
+        <p class="intro">本测试包含32个问题，请根据你的实际情况选择最符合的选项。测试结果将帮助你了解自己在情感和生活上对男性的依赖程度。</p>
+        
+        <div id="questions-container">
+            <!-- 问题将通过JavaScript动态生成 -->
+        </div>
+        
+        <button id="submit-btn" class="submit-btn">提交测试</button>
+        
+        <div id="result" class="result">
+            <h2>测试结果</h2>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="score" id="score">0</div>
+            <div class="level" id="level">未知</div>
+            <div class="description" id="description">
+                <!-- 描述内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>本测试仅供参考，不应作为专业心理评估依据</p>
+        </div>
+    </div>
+
+    <script>
+        // 问题数据
+        const questions = [
+            "我能独立解决生活中遇到的大部分问题",
+            "我有稳定的收入来源，能够自给自足",
+            "独自一人时，我感到充实而非孤独",
+            "我有自己的兴趣爱好和社交圈",
+            "做重要决定时，我不需要男性的认可",
+            "我有能力处理家庭维修等传统上由男性承担的任务",
+            "我对自己的外貌和价值的评价不依赖男性的看法",
+            "在社交场合，我不觉得必须有男性陪伴才有安全感",
+            "我有明确的职业规划和个人发展目标",
+            "我能独自旅行并享受这个过程",
+            "我有能力管理自己的财务状况",
+            "我能够独自应对生活中的压力和挑战",
+            "我的幸福感不依赖于是否有恋爱关系",
+            "我有足够的自信独自参加社交活动",
+            "我能独立做出关于生育和家庭的重大决定",
+            "我不需要通过婚姻来获得社会认同",
+            "我有能力处理突发事件和紧急情况",
+            "我的自我价值感不依赖于是否有男性追求",
+            "我有自己的住房或能够独立租房生活",
+            "我能独立完成日常生活中的各种任务",
+            "我对未来生活的规划不依赖于找到伴侣",
+            "我有能力处理职场中的挑战和竞争",
+            "我的社交生活丰富，不局限于与异性的交往",
+            "我有自己的支持系统（朋友、家人等）",
+            "我能独自享受休闲时光",
+            "我的生活目标不局限于婚姻和家庭",
+            "我有能力学习新技能以适应生活需求",
+            "我不害怕独自变老",
+            "我的身份认同不依赖于婚姻状况",
+            "我能独立做出关于健康和医疗的决定",
+            "我有能力为自己创造舒适的生活环境",
+            "我对自己的生活负责，不期待他人拯救"
+        ];
+
+        // 初始化问题
+        function initQuestions() {
+            const container = document.getElementById('questions-container');
+            
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                
+                const questionText = document.createElement('div');
+                questionText.className = 'question';
+                questionText.textContent = `${index + 1}. ${question}`;
+                
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+                
+                const option1 = createOption('符合', index);
+                const option2 = createOption('中立', index);
+                const option3 = createOption('不符合', index);
+                
+                optionsDiv.appendChild(option1);
+                optionsDiv.appendChild(option2);
+                optionsDiv.appendChild(option3);
+                
+                questionDiv.appendChild(questionText);
+                questionDiv.appendChild(optionsDiv);
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // 创建选项
+        function createOption(text, questionIndex) {
+            const option = document.createElement('div');
+            option.className = 'option';
+            option.textContent = text;
+            option.dataset.value = text;
+            option.dataset.questionIndex = questionIndex;
+            
+            option.addEventListener('click', function() {
+                const questionContainer = this.parentElement.parentElement;
+                const options = questionContainer.querySelectorAll('.option');
+                
+                // 移除同一问题中其他选项的选中状态
+                options.forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // 选中当前选项
+                this.classList.add('selected');
+            });
+            
+            return option;
+        }
+
+        // 计算分数
+        function calculateScore() {
+            let totalScore = 0;
+            
+            document.querySelectorAll('.question-container').forEach(container => {
+                const selectedOption = container.querySelector('.option.selected');
+                
+                if (selectedOption) {
+                    switch(selectedOption.dataset.value) {
+                        case '符合':
+                            totalScore += 1;
+                            break;
+                        case '中立':
+                            totalScore += 0.5;
+                            break;
+                        case '不符合':
+                            totalScore += 0;
+                            break;
+                    }
+                }
+            });
+            
+            // 最终分数 = 36 + 2 * 题目分数
+            return Math.round(36 + 2 * totalScore);
+        }
+
+        // 获取结果描述
+        function getResultDescription(score) {
+            let level, description;
+            
+            if (score >= 36 && score <= 52) {
+                level = "比较依赖";
+                description = "测试结果显示你对男性有一定程度的依赖。你可能在情感支持、生活决策或经济方面需要男性的参与。这并不意味着不好，但了解这一点可以帮助你更好地平衡关系和个人独立性。建议多培养自己的兴趣爱好和独立解决问题的能力，增强自信心。";
+            } else if (score >= 53 && score <= 68) {
+                level = "一般依赖";
+                description = "你在保持个人独立性和寻求男性支持之间取得了较好的平衡。你能够独立处理许多事务，但在某些方面仍然看重男性的意见和支持。这种平衡状态通常被认为是健康的，既能保持自我又能享受亲密关系。";
+            } else if (score >= 69 && score <= 84) {
+                level = "比较不依赖";
+                description = "你表现出较高的独立性，能够在情感和生活上自给自足。你拥有自己的社交圈、职业目标和生活方式，不依赖男性来获得幸福感或自我价值感。这种独立性使你在关系中能够保持平等和自主。";
+            } else if (score >= 85 && score <= 100) {
+                level = "完全不依赖";
+                description = "你展现了极高的独立性，几乎在所有方面都不依赖男性。你拥有完整的生活体系和强大的自我认同，能够完全自主地决定自己的生活方向。这种状态赋予你极大的自由，但也需要注意保持开放心态，不排斥健康的人际关系。";
+            } else {
+                level = "未知";
+                description = "无法确定你的依赖程度，请确保已回答所有问题。";
+            }
+            
+            return { level, description };
+        }
+
+        // 显示结果
+        function showResult() {
+            const score = calculateScore();
+            const result = getResultDescription(score);
+            
+            document.getElementById('score').textContent = score;
+            document.getElementById('level').textContent = result.level;
+            document.getElementById('description').textContent = result.description;
+            
+            // 更新进度条
+            const progress = ((score - 36) / (100 - 36)) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            
+            // 显示结果区域
+            document.getElementById('result').style.display = 'block';
+            
+            // 滚动到结果区域
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initQuestions();
+            
+            document.getElementById('submit-btn').addEventListener('click', function() {
+                // 检查是否所有问题都已回答
+                const answeredQuestions = document.querySelectorAll('.option.selected').length;
+                
+                if (answeredQuestions < questions.length) {
+                    alert(`请回答所有问题！您已回答 ${answeredQuestions}/${questions.length} 个问题。`);
+                    return;
+                }
+                
+                showResult();
+            });
+        });
+    </script>
+</body>
+</html>
