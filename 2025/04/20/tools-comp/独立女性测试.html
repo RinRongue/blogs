@@ -29,7 +29,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .container::before {
             content: "";
             position: absolute;
@@ -150,11 +150,9 @@
         }
         
         .qrcode-section {
-            background-color: white;
+            display: none;
             padding: 20px;
-            border-radius: 10px;
             margin-bottom: 25px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
         .qrcode-title {
@@ -162,6 +160,7 @@
             color: #7b68ee;
             margin-bottom: 15px;
             font-weight: bold;
+            text-align: center;
         }
         
         .qrcode-container {
@@ -237,7 +236,7 @@
         
         @media (max-width: 600px) {
             .options {
-                flex-direction: column;
+                flex-direction: row;
             }
             
             .option {
@@ -252,9 +251,9 @@
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .qrcode-text {
-                text-align: center;
+                text-align: left;
             }
         }
     </style>
@@ -281,15 +280,15 @@
                 <!-- 描述内容将通过JavaScript动态生成 -->
             </div>
 		<div style="height:20px;"></div>
-            <div class="qrcode-section">
-                <div class="qrcode-title">关注我们公众号【主理女士Linda】，获取更多女性成长内容</div>
-                <div class="qrcode-container">
-                    <div id="qrcode" class="qrcode-img"></div>
-                    <div class="qrcode-text">
-                        <p><strong>扫描二维码关注我们</strong></p>
-                        <p>我们致力于为女性提供更多关于独立、成长和自我实现的内容。关注公众号，获取更多专业心理测试、成长指南和女性话题讨论。</p>
-                        <p>每日更新，陪伴你的成长之路！</p>
-                    </div>
+            
+        </div>
+
+        <div id="qrcode-section" class="qrcode-section">
+            <div class="qrcode-title">扫描二维码<br/>关注公众号【主理女士Linda】<br/>获取更多女性话题讨论</div>
+            <div class="qrcode-container">
+                <div id="qrcode" class="qrcode-img"></div>
+                <div class="qrcode-text">
+                    <p><strong>我们致力于为女性提供更多关于独立、成长和自我实现的内容。关注公众号，获取更多女性话题讨论。</strong></p>
                 </div>
             </div>
         </div>
@@ -474,7 +473,9 @@
             
             // 显示结果区域
             document.getElementById('result').style.display = 'block';
-            
+ 
+            document.getElementById('qrcode-section').style.display = 'block';
+           
             // 滚动到结果区域
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
         }
@@ -489,7 +490,7 @@
                 const answeredQuestions = document.querySelectorAll('.option.selected').length;
                 
                 if (answeredQuestions < questions.length) {
-                    alert(`请回答所有问题！您已回答 ${answeredQuestions}/${questions.length} 个问题。`);
+                    alert(`请回答所有问题。您已回答 ${answeredQuestions}/${questions.length} 个问题。`);
                     return;
                 }
                 
