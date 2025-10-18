@@ -62,7 +62,7 @@
         }
         
         .intro {
-            text-align: center;
+            text-align: left;
             margin-bottom: 30px;
             color: #666;
             font-size: 16px;
@@ -149,6 +149,48 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
+        .qrcode-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .qrcode-title {
+            font-size: 18px;
+            color: #7b68ee;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .qrcode-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .qrcode-img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qrcode-text {
+            max-width: 300px;
+            text-align: left;
+            color: #666;
+            font-size: 14px;
+        }
+        
         .score {
             font-size: 36px;
             font-weight: bold;
@@ -205,6 +247,15 @@
             .container {
                 padding: 20px 15px;
             }
+            
+            .qrcode-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .qrcode-text {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -229,6 +280,18 @@
             <div class="description" id="description">
                 <!-- 描述内容将通过JavaScript动态生成 -->
             </div>
+
+            <div class="qrcode-section">
+                <div class="qrcode-title">关注我们公众号，获取更多女性成长内容</div>
+                <div class="qrcode-container">
+                    <div id="qrcode" class="qrcode-img"></div>
+                    <div class="qrcode-text">
+                        <p><strong>扫描二维码关注我们</strong></p>
+                        <p>我们致力于为女性提供更多关于独立、成长和自我实现的内容。关注公众号，获取更多专业心理测试、成长指南和女性话题讨论。</p>
+                        <p>每周更新，陪伴你的成长之路！</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="footer">
@@ -236,6 +299,9 @@
         </div>
     </div>
 
+    <!-- 引入qrcode.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    
     <script>
         // 问题数据
         const questions = [
@@ -327,6 +393,22 @@
             return option;
         }
 
+        // 生成二维码
+        function generateQRCode() {
+            // 公众号链接
+            const wechatUrl = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzYyMjgxNzczNA==&scene=110#wechat_redirect";
+            
+            // 使用qrcode.js生成二维码:cite[5]
+            new QRCode(document.getElementById("qrcode"), {
+                text: wechatUrl,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H // 最高容错级别:cite[5]
+            });
+        }
+
         // 计算分数
         function calculateScore() {
             let totalScore = 0;
@@ -400,6 +482,7 @@
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
             initQuestions();
+            generateQRCode(); // 页面加载时生成二维码
             
             document.getElementById('submit-btn').addEventListener('click', function() {
                 // 检查是否所有问题都已回答
