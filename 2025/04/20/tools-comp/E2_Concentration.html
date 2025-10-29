@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>肌肉注射戊酸雌二醇药代动力学曲线预测</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.0"></script>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex flex-col items-center bg-gray-50">
+  <!-- 使用说明 -->
+  <div class="max-w-4xl bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg mb-6 text-sm leading-relaxed">
+    <p>💡 <strong>使用方法：</strong>通过肌注雌二醇后给定时间与给定浓度的数据，估计血药浓度曲线。基线即用药前的血药浓度。</p>
+    <p>🔍 将鼠标放在曲线上可以查看任意时刻的预测浓度，使用鼠标滚轮可放大或缩小横坐标范围，拖动下方滚动条可移动图表位置。</p>
+    <p>⚠️ 本工具旨在估测血药浓度，实际情况因个体差异而不同，不构成任何医疗建议。</p>
+  </div>
+
+  <div class="w-full max-w-6xl flex flex-col lg:flex-row gap-8">
+    <!-- 输入面板 -->
+    <div class="lg:w-1/3 p-6 bg-white rounded-xl shadow">
+      <h1 class="text-2xl font-bold mb-4">PK 参数输入</h1>
+      <form id="pkForm" class="space-y-3">
+        <div>
+          <label for="dose">剂量 D (mg)</label>
+          <input type="number" id="dose" value="10" step="0.1" class="w-full border rounded p-2">
+        </div>
+        <div>
+          <label for="time">测量时间 T (小时)</label>
+          <input type="number" id="time" value="72" step="1" class="w-full border rounded p-2">
+        </div>
+        <div>
+          <label for="concentration">测量浓度 C</label>
+          <input type="number" id="concentration" value="400" step="1" class="w-full border rounded p-2">
+        </div>
+        <div>
+          <label for="baseline">基线浓度 Cb</label>
+          <input type="number" id="baseline" value="20" step="0.1" class="w-full border rounded p-2">
+        </div>
+        <div>
+          <label for="weight">体重 Bw (kg)</label>
+          <input type="number" id="weight" value="60" step="0.1" class="w-full border rounded p-2">
+        </div>
+        <div>
+          <label for="unitSelect">单位</label>
+          <select id="unitSelect" class="w-full border rounded p-2">
+            <option value="pg">pg/mL</option>
+            <option value="pmol">pmol/L</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">计算并绘图</button>
+        <div id="errorMessage" class="text-red-600 hidden"></div>
+      </form>
+    </div>
+
+    <!-- 输出 -->
+    <div class="lg:w-2/3 space-y-4">
+      <div class="bg-white p-6 rounded-xl shadow relative">
+        <h2 class="text-xl font-bold mb-3">血药浓度曲线</h2>
+        <canvas id="pkChart" class="h-96"></canvas>
+        <input id="scrollBar" type="range" min="0" max="100" value="0" class="w-full mt-4">
+        <button id="resetZoom" class="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 text-sm px-3 py-1 rounded">重置</button>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-xl font-bold mb-3">关键参数结果（皆为估算）</h2>
+        <div id="results"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+let pkChartInstance = null;
+const MW_E2_to_EV_Ratio = 272.4 / 356.5;
+const T_HALF_EL_HR = 1.5;
+const K_EL = Math.log(2) / T_HALF_EL_HR;
+const Vd_L_PER_KG = 1.0;
+const BIOAVAILABILITY = 1.0;
+
+function toPgPerMl(value, unit) { return unit === 'pmol' ? value / 3.67 : value; }
+function toDisplay(value, unit) { return unit === 'pmol' ? value * 3.67 : value; }
+function pkEquation(t, ka, D_E2_pg, Vd_mL, Cb_pg_ml) {
+  const numerator = BIOAVAILABILITY * D_E2_pg * ka;
+  const denominator = Vd_mL * (ka - K_EL);
+  if (ka === K_EL) return NaN;
+  const factor = numerator / denominator;
+  return Cb_pg_ml + factor * (Math.exp(-K_EL * t) - Math.exp(-ka * t));
+}
+function rootFindingFunction(ka, T_hr, C_pg_ml, D_E2_pg, Vd_mL, Cb_pg_ml) {
+  return pkEquation(T_hr, ka, D_E2_pg, Vd_mL, Cb_pg_ml) - C_pg_ml;
+}
+function solveKaSecant(T_hr, C_pg_ml, D_E2_pg, Vd_mL, Cb_pg_ml) {
+  let ka0 = 1e-4, ka1 = 1e-3;
+  for (let i = 0; i < 20; i++) {
+    const f0 = rootFindingFunction(ka0, T_hr, C_pg_ml, D_E2_pg, Vd_mL, Cb_pg_ml);
+    const f1 = rootFindingFunction(ka1, T_hr, C_pg_ml, D_E2_pg, Vd_mL, Cb_pg_ml);
+    if (Math.abs(f1) < 1e-7) return ka1;
+    const ka2 = ka1 - f1 * ((ka1 - ka0) / (f1 - f0));
+    if (ka2 <= 1e-10) return null;
+    if (Math.abs(ka2 - ka1) < 1e-7) return ka2;
+    ka0 = ka1; ka1 = ka2;
+  }
+  return null;
+}
+function drawChart(t_series, C_series, T_hr, C_input, T_max, C_max, Cb_input, D_mg, unit) {
+  const ctx = document.getElementById('pkChart').getContext('2d');
+  if (pkChartInstance) pkChartInstance.destroy();
+  const C_series_display = C_series.map(c => toDisplay(c, unit));
+  const Cb_disp = toDisplay(Cb_input, unit);
+  const labelUnit = unit === 'pmol' ? 'pmol/L' : 'pg/mL';
+
+  pkChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: t_series.map(t => t.toFixed(1)),
+      datasets: [{
+        label: `C(t) (${labelUnit})`,
+        data: C_series_display,
+        borderColor: '#3b82f6',
+        borderWidth: 2,
+        tension: 0.3,
+        pointRadius: 0,
+        fill: false
+      }, {
+        label: '给定点',
+        data: [{x: T_hr, y: toDisplay(C_input, unit)}],
+        backgroundColor: 'blue',
+        pointRadius: 5,
+        showLine: false
+      }, {
+        label: '达峰点',
+        data: [{x: T_max, y: toDisplay(C_max, unit)}],
+        backgroundColor: 'red',
+        pointRadius: 5,
+        showLine: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        zoom: {
+          zoom: {
+            wheel: { enabled: true },
+            mode: 'x',
+            speed: 0.05
+          },
+          pan: { enabled: true, mode: 'x' }
+        },
+        annotation: {
+          annotations: [{
+            type: 'line',
+            scaleID: 'y',
+            value: Cb_disp,
+            borderColor: '#f97316',
+            borderDash: [5,5],
+            borderWidth: 2,
+            label: { content: `基线 ${Cb_disp.toFixed(1)} ${labelUnit}`, enabled: true }
+          }]
+        }
+      },
+      scales: {
+        x: { type: 'linear', title: { display: true, text: '时间 (小时)' }, min: 0, max: 400 },
+        y: { title: { display: true, text: `浓度 (${labelUnit})` } }
+      }
+    }
+  });
+}
+
+document.getElementById('pkForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const unit = document.getElementById('unitSelect').value;
+  const D_mg = parseFloat(document.getElementById('dose').value);
+  const T_hr = parseFloat(document.getElementById('time').value);
+  const C_pg_ml = toPgPerMl(parseFloat(document.getElementById('concentration').value), unit);
+  const Cb_pg_ml = toPgPerMl(parseFloat(document.getElementById('baseline').value), unit);
+  const Bw_kg = parseFloat(document.getElementById('weight').value);
+  const resultsDiv = document.getElementById('results');
+
+  resultsDiv.innerHTML = '<p>正在计算...</p>';
+
+  const D_E2_pg = D_mg * MW_E2_to_EV_Ratio * 1e9;
+  const Vd_mL = Vd_L_PER_KG * Bw_kg * 1000;
+
+  const ka = solveKaSecant(T_hr, C_pg_ml, D_E2_pg, Vd_mL, Cb_pg_ml);
+  if (!ka) return;
+
+  const T_max = (Math.log(ka) - Math.log(K_EL)) / (ka - K_EL);
+  const C_max = pkEquation(T_max, ka, D_E2_pg, Vd_mL, Cb_pg_ml);
+  const t_half_app = Math.log(2) / ka;
+
+  const t_series = Array.from({ length: 800 }, (_, i) => i * (400 / 800));
+  const C_series = t_series.map(t => pkEquation(t, ka, D_E2_pg, Vd_mL, Cb_pg_ml));
+
+  drawChart(t_series, C_series, T_hr, C_pg_ml, T_max, C_max, Cb_pg_ml, D_mg, unit);
+
+  const labelUnit = unit === 'pmol' ? 'pmol/L' : 'pg/mL';
+  resultsDiv.innerHTML = `
+    <table class='min-w-full border text-sm text-gray-700'>
+      <tr><th class='border px-2 py-1'>参数</th><th class='border px-2 py-1'>值</th></tr>
+      <tr><td class='border px-2 py-1'>释放常数 ka</td><td class='border px-2 py-1'>${ka.toFixed(6)} hr⁻¹</td></tr>
+      <tr><td class='border px-2 py-1'>消除常数 kel</td><td class='border px-2 py-1'>${K_EL.toFixed(4)} hr⁻¹</td></tr>
+      <tr><td class='border px-2 py-1'>预测达峰时间 Tmax</td><td class='border px-2 py-1'>${T_max.toFixed(1)} 小时</td></tr>
+      <tr><td class='border px-2 py-1'>预测峰浓度 Cmax</td><td class='border px-2 py-1'>${toDisplay(C_max, unit).toFixed(0)} ${labelUnit}</td></tr>
+      <tr><td class='border px-2 py-1'>表观半衰期 t₁/₂,app</td><td class='border px-2 py-1'>${t_half_app.toFixed(1)} 小时</td></tr>
+    </table>`;
+});
+
+document.getElementById('scrollBar').addEventListener('input', e => {
+  if (!pkChartInstance) return;
+  const scrollPercent = e.target.value / 100;
+  const xScale = pkChartInstance.scales.x;
+  const range = xScale.max - xScale.min;
+  const viewWidth = 400 * 0.25; // 显示25%宽度
+  const newMin = scrollPercent * (400 - viewWidth);
+  const newMax = newMin + viewWidth;
+  pkChartInstance.options.scales.x.min = newMin;
+  pkChartInstance.options.scales.x.max = newMax;
+  pkChartInstance.update();
+});
+
+document.getElementById('resetZoom').addEventListener('click', () => {
+  if (pkChartInstance) {
+    pkChartInstance.resetZoom();
+    pkChartInstance.options.scales.x.min = 0;
+    pkChartInstance.options.scales.x.max = 400;
+    pkChartInstance.update();
+  }
+});
+</script>
+</body>
+</html>
