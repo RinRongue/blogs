@@ -197,11 +197,13 @@ document.getElementById('pkForm').addEventListener('submit', e => {
   resultsDiv.innerHTML = `
     <table class='min-w-full border text-sm text-gray-700'>
       <tr><th class='border px-2 py-1'>参数</th><th class='border px-2 py-1'>值</th></tr>
-      <tr><td class='border px-2 py-1'>释放常数 ka</td><td class='border px-2 py-1'>${ka.toFixed(6)} hr⁻¹</td></tr>
-      <tr><td class='border px-2 py-1'>消除常数 kel</td><td class='border px-2 py-1'>${K_EL.toFixed(4)} hr⁻¹</td></tr>
-      <tr><td class='border px-2 py-1'>预测达峰时间 Tmax</td><td class='border px-2 py-1'>${T_max.toFixed(1)} 小时</td></tr>
-      <tr><td class='border px-2 py-1'>预测峰浓度 Cmax</td><td class='border px-2 py-1'>${toDisplay(C_max, unit).toFixed(0)} ${labelUnit}</td></tr>
-      <tr><td class='border px-2 py-1'>表观半衰期 t₁/₂,app</td><td class='border px-2 py-1'>${t_half_app.toFixed(1)} 小时</td></tr>
+      <tr><td class='border px-2 py-1'>戊酸雌二醇肌肉释放常数 ka</td><td class='border px-2 py-1'>${ka.toFixed(6)} hr⁻¹</td></tr>
+      <tr><td class='border px-2 py-1'>雌二醇消除常数 kel</td><td class='border px-2 py-1'>${K_EL.toFixed(4)} hr⁻¹</td></tr>
+      <tr><td class='border px-2 py-1'>雌二醇预测达峰时间 Tmax</td><td class='border px-2 py-1'>${T_max.toFixed(1)} 小时</td></tr>
+      <tr><td class='border px-2 py-1'>雌二醇预测峰浓度 Cmax</td><td class='border px-2 py-1'>${toDisplay(C_max, unit).toFixed(0)} ${labelUnit}</td></tr>
+      <tr><td class='border px-2 py-1'>雌二醇表观半衰期 t₁/₂,app</td><td class='border px-2 py-1'>${t_half_app.toFixed(1)} 小时</td></tr>
+	  <hr class="my-2 border-gray-200">
+      <p class="text-sm text-gray-500">注：该模型基于单室一级动力学和分布容积 V<sub>d</sub> = 1 L/kg 的假设。</p>
     </table>`;
 });
 

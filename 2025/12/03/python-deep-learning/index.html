@@ -4,13 +4,27 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="python流程图, Blogs">
-    <meta name="description" content="点击流程图里的框框可以快速跳转到对应的博客及子目录
+    <meta name="keywords" content="python深度学习, Blogs">
+    <meta name="description" content="
+1.pytorch
 
-  graph TD
-A[界面自动化] --&gt; B([opencv-python配合图像识别点击]);
-A--&gt;C([pillow图像裁剪识别]);
-A--&gt;D([pyautogui模拟">
+1.1张量
+
+创建张量
+张量计算
+
+
+
+
+
+pytorch
+张量
+创建张量
+torch.arange(n)
+torch.tensor(v)
+dtype=torch.dtype
+v.dtype()
+/v.to(tens">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +36,7 @@ A--&gt;D([pyautogui模拟">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>python流程图 | Blogs</title>
+    <title>python深度学习 | Blogs</title>
     <link rel="icon" type="image/png" href="/blogs/favicon.png">
     
 
@@ -337,12 +351,12 @@ A--&gt;D([pyautogui模拟">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/blogs/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/blogs/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">python流程图</h1>
+                    <h1 class="description center-align post-title">python深度学习</h1>
                 </div>
             </div>
         </div>
@@ -364,13 +378,9 @@ A--&gt;D([pyautogui模拟">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/blogs/tags/python/">
-                                <span class="chip bg-color">python</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -391,7 +401,7 @@ A--&gt;D([pyautogui模拟">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-04-16
+                    2025-12-03
                 </div>
                 
 
@@ -412,101 +422,140 @@ A--&gt;D([pyautogui模拟">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>点击流程图里的框框可以快速跳转到对应的博客及子目录</p>
-<div class="mermaid">
-  graph TD
-A[<u>界面自动化</u>] --> B([opencv-python<br>配合图像识别点击]);
-A-->C([pillow<br>图像裁剪识别]);
-A-->D([pyautogui<br>模拟键鼠操作]);
-A-->E([pynput<br>底层控制输入设备]);
-A-->F([pyperclip<br>剪切板操作]);
-A-->G([time]);
-
-click A href "/blogs/2025/04/16/python-auto-gui/" _blank
-click B href "/blogs/2025/04/16/python-auto-gui/#opencvpython" _blank
-click C href "/blogs/2025/04/16/python-auto-gui/#pillow" _blank
-click D href "/blogs/2025/04/16/python-auto-gui/#pyautogui" _blank
-click E href "/blogs/2025/04/16/python-auto-gui/#pynput" _blank
-click F href "/blogs/2025/04/16/python-auto-gui/#pyperclip" _blank
-click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
-</div>
-
-<p><br><br></p>
-<div class="mermaid">
-  graph TD
-	A[桌面GUI]-->B([tkinter<br>轻便标准库]);
-	B-->D([qt designer<br>可视化界面设计器]);
-	A[桌面GUI]-->C([PyQt5/6]);
-	A[桌面GUI]-->E([Pyside2]);
-	subgraph "二选一即可"
-    	direction TB
-        E
-        C
-    end
-</div>
-
-<p><br><br></p>
-<div class="mermaid">
-  graph LR
-    B([requests<br>发起网页请求])---A[爬虫];
-    C([beautifulsoup4<br>HTML解析])---A;
-    D([lxml<br>更快的HTML解析])---A;
-    A---E([re]);
-    A---F([aiohttp<br>异步爬虫]);
-    A---G([selenium<br>自动化浏览器])
-    
-
-    click A href "/blogs/blogs/2025/04/17/python-spider/" _blank
-    click E href "/blogs/blogs/2025/04/17/python-spider/#re" _blank
-</div>
-
-<p><br><br></p>
-<div class="mermaid">
-  graph TD
-	A["数据处理、可视化"]-->B([pandas]);
-	A-->C([numpy]);
-	A-->D([matplotlib]);
-	A-->E([seaborn]);
-	A-->F([openpyxl]);
-	A-->G([xlsxwriter]);
-	A-->H([imageio<br>图像处理])
-	subgraph "画图可视化"
-		D
-		E
-	end
-	subgraph "excel操作"
-		F
-		G
-	end
-</div>
-
-<p><br><br></p>
-<div class="mermaid">
-  graph TD
-	A["数据库管理"]-->B([sqlite3]);
-	A-->C([sqlalchemy<br>ORM框架]);
-	A-->D([pymysql]);
-	A-->E([pandas.to_sql]);
-</div>
-
-<p><br><br></p>
-<div class="mermaid">
-  graph TD
-	A["人工智能"]-->B([scikit-learn<br>机器学习模型]);
-	A-->C([tensorflow]);
-	A-->D([<u>pytorch</u>]);
-	A-->E([keras]);
-	A-->F([xgboost]);
-	A-->G([lightgbm]);
-	subgraph "深度学习框架"
-		C;D;E
-	end
-	subgraph "竞赛高效模型"
-		F;G
-	end
-
-	click D href "/blogs/blogs/2025/12/03/python-deep-learning/#pytorch" _blank
-</div>
+                <ul>
+<li><a href="#pytorch">1.pytorch</a>
+<ul>
+<li><a href="#%E5%BC%A0%E9%87%8F">1.1张量</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%BC%A0%E9%87%8F">创建张量</a></li>
+<li><a href="#%E5%BC%A0%E9%87%8F%E8%AE%A1%E7%AE%97">张量计算</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="pytorch" tabindex="-1">pytorch</h1>
+<h2 id="%E5%BC%A0%E9%87%8F" tabindex="-1" id="张量">张量</h2>
+<h3 id="%E5%88%9B%E5%BB%BA%E5%BC%A0%E9%87%8F" tabindex="-1" id="创建张量">创建张量</h3>
+<p>torch.arange(n)<br>
+torch.tensor(v)<br>
+dtype=torch.dtype<br>
+v.dtype()<br>
+/v.to(tensor.dtype)<br>
+.float(), .long(), .bool()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从0开始创建一整行张量</span></span><br><span class="line">&gt;&gt;&gt;x = torch.arange(<span class="number">12</span>);x</span><br><span class="line">tensor([ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>,  <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#导入张量</span></span><br><span class="line">&gt;&gt;&gt;x = torch.tensor([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);x</span><br><span class="line">tensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#指定和查询张量内元素类型</span></span><br><span class="line">&gt;&gt;&gt;x = torch.zeros((<span class="number">1</span>,<span class="number">5</span>),dtype=torch.int32);x;x.dtype</span><br><span class="line">tensor([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]], dtype=torch.int32)</span><br><span class="line">torch.int32</span><br><span class="line"></span><br><span class="line"><span class="comment">#改变张量内元素类型</span></span><br><span class="line">&gt;&gt;&gt;x = torch.zeros((<span class="number">1</span>,<span class="number">5</span>));y=x.to(torch.int32);x;y</span><br><span class="line">tensor([[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]])</span><br><span class="line">tensor([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]], dtype=torch.int32)</span><br><span class="line"></span><br><span class="line"><span class="comment">#便捷方法</span></span><br><span class="line">&gt;&gt;&gt;x.long();x.<span class="built_in">float</span>();x.<span class="built_in">bool</span>()</span><br><span class="line">tensor([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]])</span><br><span class="line">tensor([[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]])</span><br><span class="line">tensor([[<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>]])</span><br></pre></td></tr></table></figure>
+<h3 id="pytorch-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-(dtype)-%E6%B1%87%E6%80%BB" tabindex="-1" id="PyTorch-数据类型-dtype-汇总">PyTorch 数据类型 (dtype) 汇总</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>torch.dtype</code></th>
+<th style="text-align:left">别名 (Alias)</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">主要用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>torch.float32</code></strong></td>
+<td style="text-align:left"><code>torch.float</code></td>
+<td style="text-align:left">32位单精度浮点数</td>
+<td style="text-align:left"><strong>最常用</strong>，作为大多数模型权重和计算的默认类型，在精度和性能上表现均衡。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.float64</code></td>
+<td style="text-align:left"><code>torch.double</code></td>
+<td style="text-align:left">64位双精度浮点数</td>
+<td style="text-align:left">科学计算、物理仿真等需要极高数值精度的领域。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.float16</code></td>
+<td style="text-align:left"><code>torch.half</code></td>
+<td style="text-align:left">16位半精度浮点数</td>
+<td style="text-align:left"><strong>混合精度训练</strong>，在支持的硬件上可以大幅减少显存占用、提升训练速度。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.bfloat16</code></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">16位&quot;Brain&quot;浮点数</td>
+<td style="text-align:left">专为深度学习设计，相比<code>float16</code>有更好的数值稳定性，不易溢出。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>torch.int64</code></strong></td>
+<td style="text-align:left"><code>torch.long</code></td>
+<td style="text-align:left">64位有符号整数</td>
+<td style="text-align:left"><strong>默认整数类型</strong>。常用于<strong>张量索引</strong>、<strong>类别标签</strong>和<code>nn.Embedding</code>层的输入。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.int32</code></td>
+<td style="text-align:left"><code>torch.int</code></td>
+<td style="text-align:left">32位有符号整数</td>
+<td style="text-align:left">常见的整数类型，用于存储不需要64位范围的整数数据。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.int16</code></td>
+<td style="text-align:left"><code>torch.short</code></td>
+<td style="text-align:left">16位有符号整数</td>
+<td style="text-align:left">内存占用更少的整数类型。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.int8</code></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">8位有符号整数</td>
+<td style="text-align:left"><strong>模型量化 (Quantization)</strong>，将模型权重压缩以减小体积和加速推理。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.uint8</code></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">8位无符号整数</td>
+<td style="text-align:left">存储<strong>图像数据</strong>（像素值 0-255）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>torch.bool</code></strong></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">布尔值 (True/False)</td>
+<td style="text-align:left"><strong>掩码操作 (Masking)</strong>，例如在注意力机制中忽略某些元素或进行条件选择。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.complex64</code></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">64位复数</td>
+<td style="text-align:left">信号处理、傅里叶变换等需要复数运算的科学计算。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>torch.complex128</code></td>
+<td style="text-align:left"><code>torch.cdouble</code></td>
+<td style="text-align:left">128位复数</td>
+<td style="text-align:left">精度更高的复数运算。</td>
+</tr>
+</tbody>
+</table>
+<br>
+<h3 id="%E5%85%A80%EF%BC%8C%E5%85%A81%EF%BC%8C%E5%85%A8%E9%9A%8F%E6%9C%BA%E5%BC%A0%E9%87%8F%EF%BC%88%E5%9D%87%E5%80%BC%E4%B8%BA0%E3%80%81%E6%A0%87%E5%87%86%E5%B7%AE%E4%B8%BA1%E7%9A%84%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E4%B8%AD%E9%9A%8F%E6%9C%BA%E9%87%87%E6%A0%B7%EF%BC%89" tabindex="-1" id="全0，全1，全随机张量（均值为0、标准差为1的正态分布中随机采样）">全0，全1，全随机张量（均值为0、标准差为1的正态分布中随机采样）</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#全0</span></span><br><span class="line">&gt;&gt;&gt;torch.zeros((<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)) <span class="comment">#传递元组</span></span><br><span class="line">&gt;&gt;&gt;torch.zeros([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]) <span class="comment">#传递列表</span></span><br><span class="line">&gt;&gt;&gt;torch.zeros(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>) <span class="comment">#这个也行</span></span><br><span class="line">&gt;&gt;&gt;torch.zeros_like(X) <span class="comment">#创建一个x形状的全0张量</span></span><br><span class="line">tensor([[[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">            [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">            [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]],</span><br><span class="line"></span><br><span class="line">           [[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">            [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">            [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]]])</span><br><span class="line">         </span><br><span class="line"><span class="comment">#全1</span></span><br><span class="line">&gt;&gt;&gt;torch.ones((<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line">&gt;&gt;&gt;torch.ones_like(X) <span class="comment">#创建一个x形状的全1张量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#全随机</span></span><br><span class="line">&gt;&gt;&gt;torch.randn(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">tensor([[-<span class="number">0.0135</span>,  <span class="number">0.0665</span>,  <span class="number">0.0912</span>,  <span class="number">0.3212</span>],</span><br><span class="line">        [ <span class="number">1.4653</span>,  <span class="number">0.1843</span>, -<span class="number">1.6995</span>, -<span class="number">0.3036</span>],</span><br><span class="line">        [ <span class="number">1.7646</span>,  <span class="number">1.0450</span>,  <span class="number">0.2457</span>, -<span class="number">0.7732</span>]])</span><br><span class="line">           </span><br><span class="line">&gt;&gt;&gt;torch.randn_like(x) <span class="comment">#创建一个x形状的全随机张量</span></span><br><span class="line">&gt;&gt;&gt;<span class="number">10</span>*torch.randn(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#全填充指定值</span></span><br><span class="line">&gt;&gt;&gt;torch.full((<span class="number">2</span>,<span class="number">3</span>),<span class="number">1.2</span>)</span><br><span class="line">tensor([[<span class="number">1.2000</span>, <span class="number">1.2000</span>, <span class="number">1.2000</span>],</span><br><span class="line">        [<span class="number">1.2000</span>, <span class="number">1.2000</span>, <span class="number">1.2000</span>]])</span><br><span class="line">           </span><br><span class="line">&gt;&gt;&gt;torch.full_like(x,n) <span class="comment">#创建一个x形状的全n张量</span></span><br></pre></td></tr></table></figure>
+<br>
+<h3 id="%E6%94%B9%E5%8F%98%E4%B8%80%E4%B8%AA%E5%BC%A0%E9%87%8F%E7%9A%84%E5%BD%A2%E7%8A%B6" tabindex="-1" id="改变一个张量的形状">改变一个张量的形状</h3>
+<p>torch.arange(n)<br>
+v.reshape(a,b,…)<br>
+v.flatten()<br>
+v.squeeze()<br>
+v.unsqueeze()<br>
+v.permute(a,b,…)<br>
+v.transpose(a, b)<br>
+v.T</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;x = torch.arange(<span class="number">12</span>)</span><br><span class="line">&gt;&gt;&gt;x = x.reshape(<span class="number">3</span>,<span class="number">4</span>) <span class="comment">#行，列</span></span><br><span class="line">&gt;&gt;&gt;x</span><br><span class="line"></span><br><span class="line">tensor([[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">        [ <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>],</span><br><span class="line">        [ <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#压平向量为一维           </span></span><br><span class="line">&gt;&gt;&gt;x = torch.arange(<span class="number">12</span>).reshape(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">&gt;&gt;&gt;x.flatten()</span><br><span class="line">tensor([ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>,  <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#移除所有大小为1的维度</span></span><br><span class="line">&gt;&gt;&gt;x = torch.zeros(<span class="number">1</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">3</span>);x</span><br><span class="line">tensor([[[[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]],</span><br><span class="line">         [[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]],</span><br><span class="line">         [[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]],</span><br><span class="line">         [[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]],</span><br><span class="line">         [[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]]]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;x.squeeze()</span><br><span class="line">tensor([[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">        [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">        [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">        [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">        [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定位置增加一个大小为1的维度</span></span><br><span class="line">&gt;&gt;&gt;x = torch.tensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]) </span><br><span class="line">&gt;&gt;&gt;x.unsqueeze(<span class="number">0</span>)</span><br><span class="line">tensor([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;x.unsqueeze(<span class="number">1</span>),x.unsqueeze(<span class="number">1</span>).shape</span><br><span class="line">(tensor([[<span class="number">1</span>],</span><br><span class="line">        [<span class="number">2</span>],</span><br><span class="line">        [<span class="number">3</span>]]), torch.Size([<span class="number">3</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#重排维度顺序</span></span><br><span class="line">&gt;&gt;&gt;x=torch.zeros(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);x;x.size()</span><br><span class="line">tensor([[[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]]])</span><br><span class="line">torch.Size([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">            </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x.permute(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>);x.permute(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>).size()</span><br><span class="line">tensor([[[<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>]],</span><br><span class="line"></span><br><span class="line">        [[<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>]]])</span><br><span class="line">torch.Size([<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#交换维度顺序</span></span><br><span class="line">&gt;&gt;&gt;x = torch.randn(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">&gt;&gt;&gt;x.transpose(<span class="number">0</span>, <span class="number">2</span>).size()</span><br><span class="line">torch.Size([<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#转置</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x=torch.ones(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x.T.size()</span><br><span class="line">torch.Size([<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<br>
+<h3 id="%E8%8E%B7%E5%8F%96%E5%BC%A0%E9%87%8F%E5%BD%A2%E7%8A%B6" tabindex="-1" id="获取张量形状">获取张量形状</h3>
+<p>x.shape<br>
+x.size() #等同于x.shape<br>
+x.numel()<br>
+x.dim()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;x=torch.tensor([[[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">                  [ <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>],</span><br><span class="line">                  [ <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>]],</span><br><span class="line"></span><br><span class="line">                 [[<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>],</span><br><span class="line">                  [<span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>],</span><br><span class="line">                  [<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>]]])</span><br><span class="line">&gt;&gt;&gt;x.shape</span><br><span class="line">torch.Size([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">&gt;&gt;&gt;x.numel()</span><br><span class="line"><span class="number">24</span></span><br><span class="line">&gt;&gt;&gt;x.dim()</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;x = torch.randn(<span class="number">10</span>, <span class="number">3</span>, <span class="number">224</span>, <span class="number">224</span>) <span class="comment"># 10张图片，每张3个通道，高224，宽224</span></span><br><span class="line">&gt;&gt;&gt;x.shape</span><br><span class="line">torch.Size([<span class="number">10</span>, <span class="number">3</span>, <span class="number">224</span>, <span class="number">224</span>])</span><br><span class="line">&gt;&gt;&gt;x.numel()</span><br><span class="line"><span class="number">1505280</span></span><br><span class="line">&gt;&gt;&gt;x.dim()</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h3 id="%E5%BC%A0%E9%87%8F%E8%AE%A1%E7%AE%97" tabindex="-1" id="张量计算">张量计算</h3>
 
                 
             </div>
@@ -533,7 +582,7 @@ click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/blogs/2025/04/16/python-flow-chart/">http://example.com/blogs/2025/04/16/python-flow-chart/</a>
+                    <a href="http://example.com/blogs/2025/12/03/python-deep-learning/">http://example.com/blogs/2025/12/03/python-deep-learning/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -570,11 +619,7 @@ click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/blogs/tags/python/">
-                                    <span class="chip bg-color">python</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -618,17 +663,18 @@ click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/blogs/2025/04/17/python-spider/">
+                <a href="/blogs/2025/12/03/python-deep-learning/">
                     <div class="card-image">
                         
                         
-                        <img src="/blogs/medias/featureimages/15.jpg" class="responsive-img" alt="爬虫">
+                        <img src="/blogs/medias/featureimages/11.jpg" class="responsive-img" alt="python深度学习">
                         
-                        <span class="card-title">爬虫</span>
+                        <span class="card-title">python深度学习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -638,9 +684,9 @@ click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-12-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -653,6 +699,7 @@ click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -663,13 +710,13 @@ click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blogs/2025/04/16/python-auto-gui/">
+                <a href="/blogs/2025/04/24/python-pygame/">
                     <div class="card-image">
                         
                         
-                        <img src="/blogs/medias/featureimages/14.jpg" class="responsive-img" alt="python界面自动化">
+                        <img src="/blogs/medias/featureimages/21.jpg" class="responsive-img" alt="pygame">
                         
-                        <span class="card-title">python界面自动化</span>
+                        <span class="card-title">pygame</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -680,7 +727,7 @@ click G href "/blogs/2025/04/16/python-auto-gui/#time" _top
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-24
                             </span>
                         <span class="publish-author">
                             
