@@ -66,9 +66,9 @@ re.findall()
 
 
     <script src="/blogs/libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
 
 <meta name="generator" content="Hexo 7.3.0"></head>
-
 
 <body>
     <header class="navbar-fixed">
@@ -446,7 +446,7 @@ re.findall()
 从字符串的<strong>开头</strong>匹配正则表达式。如果正则表达式能在字符串的开头匹配成功，就返回一个匹配对象；否则返回None</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">text = &quot;Hello, world!&quot;</span><br><span class="line"># 检查字符串是否以 &quot;Hello&quot; 开头</span><br><span class="line">match = re.match(r&#x27;Hello&#x27;, text)</span><br><span class="line">if match:</span><br><span class="line">    print(&quot;匹配成功:&quot;, match.group())</span><br><span class="line">else:</span><br><span class="line">    print(&quot;没有匹配成功&quot;) #匹配成功: Hello</span><br></pre></td></tr></table></figure>
 <hr>
-<p>re.search()<br>
+<p>re.search()
 扫描整个字符串，返回第一个匹配的结果，否则返回None</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">text = &quot;My email is alice@example.com.&quot;</span><br><span class="line"># 搜索字符串中的第一个邮箱地址</span><br><span class="line">search = re.search(r&#x27;\w+@\w+\.\w+&#x27;, text)</span><br><span class="line">if search:</span><br><span class="line">    print(&quot;找到邮箱:&quot;, search.group())</span><br><span class="line">else:</span><br><span class="line">    print(&quot;没有找到匹配的邮箱&quot;) #找到邮箱: alice@example.com</span><br></pre></td></tr></table></figure>
 <hr>
