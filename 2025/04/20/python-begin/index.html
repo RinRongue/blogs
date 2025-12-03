@@ -65,7 +65,7 @@
 
 
     <script src="/blogs/libs/jquery/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 
@@ -414,9 +414,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/blogs/libs/prism/prism.min.css">
-        
 
         
 
@@ -496,10 +493,10 @@
 <code>a, b = input(&quot;请输入两个值，用空格分隔: &quot;).split() #一次输入多个值并用空格分隔</code><br>
 <code>x, y = map(int, input(&quot;请输入两个整数: &quot;).split()) #一次输入多个值并用空格分隔且格式化为整数</code><br>
 <code>a, b = '','' #一次定义多个数值</code><br>
-<code>print('',end='') #输出完后不换行</code>
+<code>print('',end='') #输出完后不换行</code><br>
 <code>print('\r',end='') #覆盖上次的输出</code></p>
 <h1 id="%E5%AD%97%E7%AC%A6%E4%B8%B2" tabindex="-1">字符串</h1>
-<p>使用’ ‘或&quot; &quot;
+<p>使用’ ‘或&quot; &quot;<br>
 使用’‘’ ‘’'创建多行字符串</p>
 <h2 id="%E7%B4%A2%E5%BC%95%E5%92%8C%E5%88%87%E7%89%87" tabindex="-1" id="索引和切片">索引和切片</h2>
 <p>正向递增序号0~a<br>
@@ -1012,7 +1009,7 @@ pass 占位符，不执行任何操作</p>
 <h1 id="%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8" tabindex="-1">函数的定义与使用</h1>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#函数的定义</span></span><br><span class="line"><span class="keyword">def</span> &lt;函数名&gt;():</span><br><span class="line">  &lt;函数体&gt;</span><br><span class="line">  <span class="keyword">return</span> &lt;返回值&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#没有参数和返回值的函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print</span>():</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  [<span class="keyword">return</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#可选参数必须在必选参数之后，赋值成为可选参数</span></span><br><span class="line"><span class="keyword">def</span> &lt;函数名&gt;(&lt;必选参数&gt;,&lt;可选参数=a&gt;):</span><br><span class="line">  &lt;函数体&gt;</span><br><span class="line">  <span class="keyword">return</span> &lt;返回值&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#可变参数必须在必选参数后，用*&lt;字母&gt;表示</span></span><br><span class="line"><span class="keyword">def</span> &lt;函数名&gt;(&lt;必选参数&gt;,*b):</span><br><span class="line">  &lt;函数体&gt;</span><br><span class="line">  <span class="keyword">return</span> &lt;返回值&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">minus</span>(<span class="params">a,*b</span>): <span class="comment">#使a减去不确定数量的参数b</span></span><br><span class="line">    r=a</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> b:</span><br><span class="line">        r-=i</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"><span class="built_in">print</span>(minus(<span class="number">10</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) <span class="comment">#4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#按位置方式和按名称方式传递函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">factor</span>(<span class="params">a,b</span>):</span><br><span class="line"></span><br><span class="line">factor(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">factor(b=<span class="number">2</span>,a=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#多个返回值为元组类型</span></span><br><span class="line"><span class="keyword">def</span>：</span><br><span class="line">  <span class="keyword">return</span> a,b,c &gt; (a,b,c)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使返回值不为元组类型的妙妙小方法</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">factor</span>(<span class="params">a,b,c</span>):</span><br><span class="line">  d=a;e=b;f=c</span><br><span class="line">  <span class="keyword">return</span> d,e,f</span><br><span class="line"></span><br><span class="line">g,h,i=factor(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(g) <span class="comment">#1</span></span><br><span class="line"><span class="built_in">print</span>(h) <span class="comment">#2</span></span><br><span class="line"><span class="built_in">print</span>(i) <span class="comment">#3</span></span><br></pre></td></tr></table></figure>
 <h2 id="%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F" tabindex="-1" id="局部变量和全局变量">局部变量和全局变量</h2>
-<p>怪谈1：基本数据类型，无论是否重名，局部变量与全局变量不同
+<p>怪谈1：基本数据类型，无论是否重名，局部变量与全局变量不同<br>
 使用global在函数内部使用全局变量</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x=1</span><br><span class="line">def func():</span><br><span class="line">  global x</span><br><span class="line">  &lt;省略&gt;</span><br></pre></td></tr></table></figure>
 <p>怪谈2：局部变量为组合数据类型且未创建，等同于全局变量，若组合数据类型被创建，则为局部变量</p>
@@ -1437,17 +1434,17 @@ w=world.WorldCloud() #注意大小写</p>
 <li>自顶向下设计</li>
 </ol>
 <p><s>自顶向下：适合解决复杂问题的思维方法</s><br>
-<s>1. 将一个总问题表达为多个小问题组成的形式</s>
-<s>2. 使用同样方法进一步分解小问题</s>
+<s>1. 将一个总问题表达为多个小问题组成的形式</s><br>
+<s>2. 使用同样方法进一步分解小问题</s><br>
 <s>3. 用计算机简单明了的解决小问题</s></p>
 <p><s>自顶向上：逐步组件复杂系统的有效测试方法</s><br>
-<s>1. 分单元测试，逐步组装
-2. 按照自顶向下相反的路径操作
+<s>1. 分单元测试，逐步组装<br>
+2. 按照自顶向下相反的路径操作<br>
 3. 直至系统各部分以组装的思路都经过测试和验证</s></p>
 <ol start="3">
-<li>模块化设计
+<li>模块化设计<br>
 模块内部紧耦合，模块间松耦合</li>
-<li>配置化设计
+<li>配置化设计<br>
 程序执行和配置分离，将可选参数配置化，将开发程序变成配置文件编写，扩展功能而不修改程序</li>
 <li>接口设计</li>
 </ol>
@@ -1650,9 +1647,6 @@ w=world.WorldCloud() #注意大小写</p>
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/blogs/libs/codeBlock/codeBlockFuction.js"></script>
 
-
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/blogs/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
