@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字图像学习路线图 (可保存进度)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #495057;
+            margin-bottom: 40px;
+        }
+        .mindmap {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .mindmap ul {
+            list-style-type: none;
+            padding-left: 40px;
+            position: relative;
+        }
+        .mindmap li {
+            position: relative;
+            padding: 8px 0 8px 40px;
+            line-height: 1.6;
+        }
+        /* Connectors */
+        .mindmap li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 1px solid #adb5bd;
+            height: 100%;
+            width: 20px;
+        }
+        .mindmap li:last-child::before {
+            height: 22px; /* Adjust to align with the checkbox */
+        }
+        .mindmap li::after {
+            content: '';
+            position: absolute;
+            top: 22px; /* Align with the middle of the checkbox */
+            left: 0;
+            border-top: 1px solid #adb5bd;
+            width: 25px;
+        }
+        .item-content {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 10px 15px;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        .item-content:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .details {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-left: 5px;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>数字图像学习路线图</h1>
+
+    <ul class="mindmap">
+        <li>
+            <div class="item-content">
+                <input type="checkbox" id="topic1">
+                <label for="topic1"><strong>数字图像处理</strong> <span class="details">参考资料:《数字图像处理》, python opencv图像处理</span></label>
+            </div>
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <input type="checkbox" id="topic1-1">
+                        <label for="topic1-1">数字图像基本概念 <span class="details">书P121-P135, 当科普看就可以</span></label>
+                    </div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="topic1-1-1"><label for="topic1-1-1">读写图像 <span class="details">通过python opencv读写图像, 转换成numpy数组</span></label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic1-1-2"><label for="topic1-1-2">图像亮度增强 <span class="details">通过数学函数对图像进行变换, 增强图像亮度</span></label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="topic1-1-2-1"><label for="topic1-1-2-1">实验: 图像亮度增强</label></div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><div class="item-content"><input type="checkbox" id="topic1-2"><label for="topic1-2">频域处理 <span class="details">书第4章, 比较难, 可以不着急</span></label></div></li>
+                <li><div class="item-content"><input type="checkbox" id="topic1-3"><label for="topic1-3">彩色图像处理 <span class="details">书第6章, 对带有RGB3个通道的彩色图像进行处理</span></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="topic1-3-1"><label for="topic1-3-1">实验: 图像灰度化</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic1-3-2"><label for="topic1-3-2">实验: 饱和度变换</label></div></li>
+                    </ul>
+                </li>
+                <li><div class="item-content"><input type="checkbox" id="topic1-4"><label for="topic1-4">形态学操作 <span class="details">书第9章, 常用与提取图像特征</span></label></div></li>
+                <li><div class="item-content"><input type="checkbox" id="topic1-5"><label for="topic1-5">边缘检测 <span class="details">了解canny算法, sobel算子</span></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="topic1-5-1"><label for="topic1-5-1">实验: 细胞计数</label></div></li>
+                    </ul>
+                </li>
+                 <li><div class="item-content"><input type="checkbox" id="topic1-6"><label for="topic1-6">卷积操作 <span class="details">理解卷积操作的概念和原理</span></label></div></li>
+            </ul>
+        </li>
+        <li>
+            <div class="item-content">
+                <input type="checkbox" id="topic2">
+                <label for="topic2"><strong>深度学习</strong> <span class="details">参考资料:《动手学深度学习》</span></label>
+            </div>
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <input type="checkbox" id="topic2-1"><label for="topic2-1">预备知识 <span class="details">深度学习相关数学基础</span></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-1-1"><label for="topic2-1-1">高等数学基础 <span class="details">求导, 积分, 偏导, 梯度</span></label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-1-2"><label for="topic2-1-2">线性代数基础 <span class="details">矩阵运算, 本质是数学公式的简化封装</span></label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-1-3"><label for="topic2-1-3">概率论基础 <span class="details">掌握基础概率概念与符号表示</span></label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-1-4"><label for="topic2-1-4">Pytorch基础 <span class="details">学习基础操作, 张量运算等</span></label></div></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="item-content"><input type="checkbox" id="topic2-2"><label for="topic2-2">神经网络基础</label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-2-1"><label for="topic2-2-1">神经网络 <span class="details">掌握感知机, 单层线性神经网络</span></label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-2-2"><label for="topic2-2-2">多层神经网络 <span class="details">拟合更复杂的函数</span></label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-2-3"><label for="topic2-2-3">反向传播算法 <span class="details">所有神经网络学习的核心</span></label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="topic2-2-3-1"><label for="topic2-2-3-1">实验: 预测房价</label></div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="item-content"><input type="checkbox" id="topic2-3"><label for="topic2-3">现代神经网络</label></div>
+                    <ul>
+                        <li><div class="item-content highlight"><input type="checkbox" id="topic2-3-1"><label for="topic2-3-1">模块化神经网络 <span class="details">重点掌握, 现代AI框架的关键</span></label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-3-2"><label for="topic2-3-2">卷积神经网络 (CNN) <span class="details">很重要, 完全理解运算过程和原理</span></label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="topic2-3-2-1"><label for="topic2-3-2-1">多种神经网络结构</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="topic2-3-2-2"><label for="topic2-3-2-2">图像分类 <span class="details">Kaggle比赛: 树叶分类</span></label></div></li>
+                            </ul>
+                        </li>
+                        <li><div class="item-content"><input type="checkbox" id="topic2-3-3"><label for="topic2-3-3">注意力机制 <span class="details">让神经网络关注重要特征</span></label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="topic2-3-3-1"><label for="topic2-3-3-1">Transformer模型 <span class="details">GPT的基础, 起源于NLP, 在视觉中也很好用</span></label></div>
+                                    <ul>
+                                        <li><div class="item-content"><input type="checkbox" id="topic2-3-3-1-1"><label for="topic2-3-3-1-1">Vision Transformer (ViT)</label></div>
+                                            <ul>
+                                                <li><div class="item-content"><input type="checkbox" id="topic2-3-3-1-1-1"><label for="topic2-3-3-1-1-1">ViT 图像分类 <span class="details">从头手写ViT, 深入理解</span></label></div></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                         <li><div class="item-content"><input type="checkbox" id="topic2-3-4"><label for="topic2-3-4">模型微调 <span class="details">用预训练模型参数初始化新模型, 加快收敛</span></label></div></li>
+                    </ul>
+                </li>
+                 <li>
+                    <div class="item-content"><input type="checkbox" id="topic2-4"><label for="topic2-4">循环神经网络 (RNN) <span class="details">了解基本思想即可, 已被Transformer替代</span></label></div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const storageKeyPrefix = 'mindmap_progress_';
+        let userId = localStorage.getItem('mindmap_userId');
+
+        // 1. 如果没有用户ID，则创建一个新的UUID并存储
+        if (!userId) {
+            userId = 'user-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('mindmap_userId', userId);
+        }
+
+        const userProgressKey = storageKeyPrefix + userId;
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // 2. 加载进度
+        function loadProgress() {
+            const savedProgress = JSON.parse(localStorage.getItem(userProgressKey) || '{}');
+            checkboxes.forEach(checkbox => {
+                if (savedProgress[checkbox.id]) {
+                    checkbox.checked = true;
+                }
+            });
+        }
+
+        // 3. 保存进度
+        function saveProgress() {
+            const currentProgress = {};
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    currentProgress[checkbox.id] = true;
+                }
+            });
+            localStorage.setItem(userProgressKey, JSON.stringify(currentProgress));
+        }
+
+        // 4. 为所有复选框添加事件监听器
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', saveProgress);
+        });
+
+        // 初始加载
+        loadProgress();
+    });
+    </script>
+
+</body>
+</html>
