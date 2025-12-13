@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彩虹猫风暴</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1d; /* 保持原有的深色背景 */
+            overflow: hidden; /* 隐藏滚动条 */
+        }
+
+        #rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .nyan-cat-wrapper {
+            position: absolute;
+        }
+
+        .nyan-cat-image {
+            height: auto;
+            opacity: 0.8;
+            transform: rotate(45deg); /* 保持45度飞行姿态 */
+            will-change: transform; /* 性能优化 */
+        }
+
+        @keyframes diagonal-fall {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(120vw, 120vh); /* 确保飞得足够远 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="rain-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rainContainer = document.getElementById('rain-container');
+            const catImageUrl = 'https://media.tenor.com/OSvXx8hEwgcAAAAi/nyan-cat-cat.gif';
+
+            function createCat() {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'nyan-cat-wrapper';
+                const cat = document.createElement('img');
+                cat.src = catImageUrl;
+                cat.className = 'nyan-cat-image';
+
+                // 随机大小
+                const randomSize = 50 + Math.random() * 90; // 尺寸范围略微调整
+                cat.style.width = `${randomSize}px`;
+                
+                wrapper.appendChild(cat);
+                
+                // 随机出现位置 (左侧和上方)
+                if (Math.random() > 0.5) {
+                    wrapper.style.top = '-200px'; // 从更高的地方开始
+                    wrapper.style.left = (Math.random() * (window.innerWidth + 400) - 400) + 'px';
+                } else {
+                    wrapper.style.top = (Math.random() * (window.innerHeight + 400) - 400) + 'px';
+                    wrapper.style.left = '-200px'; // 从更左的地方开始
+                }
+                
+                const randomDelay = Math.random() * 8; // 延迟范围稍大，让出现更随机
+                const randomDuration = 5 + Math.random() * 5; // 飞行时间也更随机
+                
+                wrapper.style.animation = `diagonal-fall ${randomDuration}s linear ${randomDelay}s forwards`;
+                
+                rainContainer.appendChild(wrapper);
+                
+                // 动画结束后清理元素
+                setTimeout(() => { wrapper.remove(); }, (randomDelay + randomDuration + 2) * 1000);
+            }
+
+            // 核心改动：大幅增加生成频率！
+            setInterval(createCat, 120); 
+        });
+    </script>
+</body>
+</html>
