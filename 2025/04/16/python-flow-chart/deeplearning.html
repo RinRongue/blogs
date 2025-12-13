@@ -3,88 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>深度学习路径 ver彩虹猫</title>
+    <title>AI学习流程 ver彩虹猫</title>
     <style>
         /* --- 全局与字体 --- */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
-
         :root {
-            --bg-color: #1a1a1d;
-            --card-bg: #2c2c34;
-            --text-color: #f0f0f0;
-            --primary-color: #4a90e2;
-            --line-color: #444;
-            --accent-color: #e91e63;
+            --bg-color: #1a1a1d; --card-bg: #2c2c34; --text-color: #f0f0f0;
+            --primary-color: #4a90e2; --line-color: #444; --accent-color: #e91e63;
             --indeterminate-color: #6c757d;
         }
-
         body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 40px;
-            overflow-x: hidden;
+            font-family: 'Noto Sans SC', sans-serif; background-color: var(--bg-color);
+            color: var(--text-color); padding: 40px; overflow-x: hidden;
+            padding-bottom: 120px; /* 为底部导航栏留出空间 */
         }
 
         /* --- 彩虹猫雨 --- */
-        #rain-container {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none; z-index: 999;
-        }
+        #rain-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
         .nyan-cat-wrapper { position: absolute; }
-        .nyan-cat-image {
-            height: auto; opacity: 0.8;
-            transform: rotate(45deg);
-        }
-        @keyframes diagonal-fall {
-            from { transform: translate(0, 0); }
-            to { transform: translate(110vw, 110vh); }
-        }
+        .nyan-cat-image { height: auto; opacity: 0.8; transform: rotate(45deg); }
+        @keyframes diagonal-fall { from { transform: translate(0, 0); } to { transform: translate(110vw, 110vh); } }
 
         /* --- 页面内容 --- */
         .container {
-            position: relative; z-index: 1;
-            max-width: 900px; margin: 0 auto;
-            background: rgba(44, 44, 52, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 16px; padding: 20px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative; z-index: 1; max-width: 900px; margin: 0 auto;
+            background: rgba(44, 44, 52, 0.7); backdrop-filter: blur(10px);
+            border-radius: 16px; padding: 20px 40px; border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        h1 {
-            text-align: center; color: var(--primary-color);
-            margin-bottom: 20px; font-weight: 700;
-            text-shadow: 0 0 10px var(--primary-color);
-        }
+        h1 { text-align: center; color: var(--primary-color); margin-bottom: 20px; font-weight: 700; text-shadow: 0 0 10px var(--primary-color); }
         .info-box {
-            background-color: rgba(0,0,0,0.2);
-            padding: 20px; border-radius: 8px; margin-bottom: 40px;
-            text-align: center; font-size: 0.9em; line-height: 1.7;
-            border: 1px solid var(--line-color);
+            background-color: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 40px;
+            text-align: center; font-size: 0.9em; line-height: 1.7; border: 1px solid var(--line-color);
         }
         .info-box p { margin: 8px 0; color: #ccc; }
-        .info-box strong { color: var(--primary-color); font-weight: 500; }
         .info-box a { color: var(--accent-color); text-decoration: none; font-weight: bold;}
-
-        /* --- 核心改动：动态彩虹文字 --- */
         .rainbow-text {
-            font-size: 3em; /* 巨大化! */
-            font-weight: 700;
-            margin: 15px 0;
+            font-size: 3em; font-weight: 700; margin: 15px 0;
             background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            background-size: 400% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent; /* 兼容旧版 Webkit */
-            animation: rainbow-flow 4s linear infinite;
+            background-size: 400% 100%; -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; animation: rainbow-flow 4s linear infinite;
         }
+        @keyframes rainbow-flow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-        @keyframes rainbow-flow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+        /* --- 流程图切换逻辑 --- */
+        .flowchart-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
         }
+        .flowchart-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- 脑图样式 --- */
+        /* --- 脑图样式 (通用) --- */
         .mindmap, .mindmap ul { list-style-type: none; padding-left: 30px; position: relative; }
         .mindmap li { position: relative; padding: 5px 0 5px 45px; }
         .mindmap li::before, .mindmap li::after { content: ''; position: absolute; left: 0; border-color: var(--line-color); }
@@ -92,51 +61,47 @@
         .mindmap li:last-child::before { height: 22px; }
         .mindmap li::after { border-top: 2px solid var(--line-color); top: 22px; width: 25px; }
         .item-content {
-            background-color: var(--card-bg);
-            border-radius: 8px; padding: 10px 15px;
-            display: inline-flex; align-items: center;
-            border: 1px solid var(--line-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease; cursor: pointer;
+            background-color: var(--card-bg); border-radius: 8px; padding: 10px 15px;
+            display: inline-flex; align-items: center; border: 1px solid var(--line-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; cursor: pointer;
         }
-        .item-content:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
-            border-color: var(--primary-color);
-        }
+        .item-content:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3); border-color: var(--primary-color); }
 
-        /* --- 自定义复选框 --- */
+        /* --- 自定义复选框 (通用) --- */
         .item-content label { cursor: pointer; display: flex; align-items: center; }
         input[type="checkbox"] { display: none; }
         .custom-checkbox {
-            width: 20px; height: 20px; background-color: #333;
-            border: 2px solid var(--line-color); border-radius: 5px;
-            margin-right: 15px; transition: all 0.3s ease;
+            width: 20px; height: 20px; background-color: #333; border: 2px solid var(--line-color);
+            border-radius: 5px; margin-right: 15px; transition: all 0.3s ease;
             position: relative; flex-shrink: 0;
         }
-        .custom-checkbox::after {
-            color: white; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            transition: all 0.2s ease-out;
-        }
-        input[type="checkbox"]:checked + label .custom-checkbox {
-            background-color: var(--primary-color); border-color: var(--primary-color);
-            box-shadow: 0 0 10px var(--primary-color);
-        }
-        input[type="checkbox"]:checked + label .custom-checkbox::after {
-            content: '✔'; font-size: 16px;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        input[type="checkbox"]:indeterminate + label .custom-checkbox {
-            background-color: var(--indeterminate-color);
-            border-color: var(--indeterminate-color);
-        }
-        input[type="checkbox"]:indeterminate + label .custom-checkbox::after {
-            content: '—'; font-size: 20px; line-height: 20px;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
+        .custom-checkbox::after { color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); transition: all 0.2s ease-out; }
+        input[type="checkbox"]:checked + label .custom-checkbox { background-color: var(--primary-color); border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-color); }
+        input[type="checkbox"]:checked + label .custom-checkbox::after { content: '✔'; font-size: 16px; transform: translate(-50%, -50%) scale(1); }
+        input[type="checkbox"]:indeterminate + label .custom-checkbox { background-color: var(--indeterminate-color); border-color: var(--indeterminate-color); }
+        input[type="checkbox"]:indeterminate + label .custom-checkbox::after { content: '—'; font-size: 20px; line-height: 20px; transform: translate(-50%, -50%) scale(1); }
         .details { font-size: 0.8em; color: #aaa; margin-left: 8px; font-style: italic; }
+
+        /* --- 底部导航栏 --- */
+        .navigation-box {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(26, 26, 29, 0.8); backdrop-filter: blur(10px);
+            display: flex; justify-content: center; padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.3); z-index: 1000;
+        }
+        .nav-button {
+            font-family: 'Noto Sans SC', sans-serif; font-size: 1em;
+            font-weight: 500; color: #aaa; background: transparent;
+            border: 2px solid transparent; border-radius: 8px;
+            padding: 10px 25px; margin: 0 10px; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover { color: white; background-color: rgba(255,255,255,0.1); }
+        .nav-button.active {
+            color: var(--primary-color); border-color: var(--primary-color);
+            background-color: rgba(74, 144, 226, 0.1);
+            text-shadow: 0 0 5px var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -144,135 +109,194 @@
     <div id="rain-container"></div>
 
     <div class="container">
-        <h1>深度学习路径 ver彩虹猫</h1>
-        
-        <!-- 核心改动：信息框内容 -->
+        <h1 id="main-title">Python 基础</h1>
         <div class="info-box">
              <p><strong>使用方法:</strong> 学过了什么就勾选前面的勾勾，进度会自动保存在你的浏览器中。</p>
             <p><strong>注意:</strong> 清除浏览器缓存或网站数据会导致进度重置。</p>
             <p>数据来自国家杰青、百千万人才工程、创新人才推进计划、优青、中科院百人、国家级教学名师、国家科技进步奖获得者等（这里空太小坐不下这么多人）——</p>
             <div class="rainbow-text">彩虹猫</div>
             <p><a href="https://ai.feishu.cn/wiki/Q1bywbiV2iIlwdkQCtYcyT4znve" target="_blank">参考链接</a></p>
+			<p>我只是搬运工找资料去上面↑↑↑找资料去上面我只是搬运工</p>
         </div>
 
-        <ul class="mindmap">
-            <!-- HTML 结构保持不变 -->
-            <li>
-                <div class="item-content">
-                    <input type="checkbox" id="math_basics">
-                    <label for="math_basics"><span class="custom-checkbox"></span><strong>数学基础</strong></label>
-                </div>
-                <ul>
-                    <li><div class="item-content"><input type="checkbox" id="math1"><label for="math1"><span class="custom-checkbox"></span>高等数学</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="math2"><label for="math2"><span class="custom-checkbox"></span>线性代数</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="math3"><label for="math3"><span class="custom-checkbox"></span>概率论</label></div></li>
-                </ul>
-            </li>
-            <li>
-                <div class="item-content">
-                    <input type="checkbox" id="ml_basics">
-                    <label for="ml_basics"><span class="custom-checkbox"></span><strong>机器学习基础</strong></label>
-                </div>
-                <ul>
-                    <li><div class="item-content"><input type="checkbox" id="ml1"><label for="ml1"><span class="custom-checkbox"></span>线性回归</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="ml2"><label for="ml2"><span class="custom-checkbox"></span>逻辑回归</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="ml3"><label for="ml3"><span class="custom-checkbox"></span>决策树/随机森林</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="ml4"><label for="ml4"><span class="custom-checkbox"></span>SVM</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="ml5"><label for="ml5"><span class="custom-checkbox"></span>K-Means</label></div></li>
-                </ul>
-            </li>
-            <li>
-                <div class="item-content">
-                    <input type="checkbox" id="dl_basics">
-                    <label for="dl_basics"><span class="custom-checkbox"></span><strong>深度学习基础</strong></label>
-                </div>
-                <ul>
-                    <li><div class="item-content"><input type="checkbox" id="dl1"><label for="dl1"><span class="custom-checkbox"></span>神经网络</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="dl2"><label for="dl2"><span class="custom-checkbox"></span>反向传播</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="dl3"><label for="dl3"><span class="custom-checkbox"></span>激活函数</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="dl4"><label for="dl4"><span class="custom-checkbox"></span>损失函数</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="dl5"><label for="dl5"><span class="custom-checkbox"></span>优化器</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="dl6"><label for="dl6"><span class="custom-checkbox"></span>Pytorch/TensorFlow</label></div></li>
-                </ul>
-            </li>
-             <li>
-                <div class="item-content">
-                    <input type="checkbox" id="dl_advanced">
-                    <label for="dl_advanced"><span class="custom-checkbox"></span><strong>深度学习进阶</strong></label>
-                </div>
-                <ul>
-                    <li><div class="item-content"><input type="checkbox" id="adv1"><label for="adv1"><span class="custom-checkbox"></span>CNN</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="adv2"><label for="adv2"><span class="custom-checkbox"></span>RNN/LSTM</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="adv3"><label for="adv3"><span class="custom-checkbox"></span>Transformer<span class="details">非常重要</span></label></div></li>
-                     <li><div class="item-content"><input type="checkbox" id="adv4"><label for="adv4"><span class="custom-checkbox"></span>模型调参</label></div></li>
-                </ul>
-            </li>
-             <li>
-                <div class="item-content">
-                    <input type="checkbox" id="dl_frontiers">
-                    <label for="dl_frontiers"><span class="custom-checkbox"></span><strong>前沿方向</strong></label>
-                </div>
-                <ul>
-                    <li><div class="item-content"><input type="checkbox" id="fro1"><label for="fro1"><span class="custom-checkbox"></span>CV (分类, 检测, 分割)</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="fro2"><label for="fro2"><span class="custom-checkbox"></span>NLP (文本分类, 机器翻译)</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="fro3"><label for="fro3"><span class="custom-checkbox"></span>多模态</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="fro4"><label for="fro4"><span class="custom-checkbox"></span>AIGC (GAN, Diffusion, VAE)</label></div></li>
-                    <li><div class="item-content"><input type="checkbox" id="fro5"><label for="fro5"><span class="custom-checkbox"></span>强化学习</label></div></li>
-                </ul>
-            </li>
-        </ul>
+        <!-- 主题1: Python 基础 -->
+        <div id="flowchart-python" class="flowchart-content active">
+            <ul class="mindmap">
+                <li>
+                    <div class="item-content"><input type="checkbox" id="py-main"><label for="py-main"><span class="custom-checkbox"></span><strong>Python基础</strong></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="py-datatypes"><label for="py-datatypes"><span class="custom-checkbox"></span>数据类型</label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="py-dt1"><label for="py-dt1"><span class="custom-checkbox"></span>变量</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-dt2"><label for="py-dt2"><span class="custom-checkbox"></span>字符串</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-dt3"><label for="py-dt3"><span class="custom-checkbox"></span>列表</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-dt4"><label for="py-dt4"><span class="custom-checkbox"></span>字典</label></div></li>
+                            </ul>
+                        </li>
+                        <li><div class="item-content"><input type="checkbox" id="py-flow"><label for="py-flow"><span class="custom-checkbox"></span>流程控制</label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="py-f1"><label for="py-f1"><span class="custom-checkbox"></span>if/else</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-f2"><label for="py-f2"><span class="custom-checkbox"></span>for/while</label></div></li>
+                            </ul>
+                        </li>
+                        <li><div class="item-content"><input type="checkbox" id="py-functions"><label for="py-functions"><span class="custom-checkbox"></span>函数</label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="py-func1"><label for="py-func1"><span class="custom-checkbox"></span>定义</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-func2"><label for="py-func2"><span class="custom-checkbox"></span>调用</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-func3"><label for="py-func3"><span class="custom-checkbox"></span>参数</label></div></li>
+                            </ul>
+                        </li>
+                        <li><div class="item-content"><input type="checkbox" id="py-oop"><label for="py-oop"><span class="custom-checkbox"></span>面向对象</label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="py-oop1"><label for="py-oop1"><span class="custom-checkbox"></span>类</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-oop2"><label for="py-oop2"><span class="custom-checkbox"></span>继承</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-oop3"><label for="py-oop3"><span class="custom-checkbox"></span>封装</label></div></li>
+                            </ul>
+                        </li>
+                         <li><div class="item-content"><input type="checkbox" id="py-libs"><label for="py-libs"><span class="custom-checkbox"></span>常用库</label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="py-lib1"><label for="py-lib1"><span class="custom-checkbox"></span>Numpy</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-lib2"><label for="py-lib2"><span class="custom-checkbox"></span>Matplotlib</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-lib3"><label for="py-lib3"><span class="custom-checkbox"></span>Pillow</label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="py-lib4"><label for="py-lib4"><span class="custom-checkbox"></span>Scikit-learn</label></div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 主题2: 图像视觉 -->
+        <div id="flowchart-vision" class="flowchart-content">
+             <ul class="mindmap">
+                <li>
+                    <div class="item-content"><input type="checkbox" id="vis-main"><label for="vis-main"><span class="custom-checkbox"></span><strong>数字图像与视觉AI</strong></label></div>
+                    <ul>
+                        <li>
+                            <div class="item-content"><input type="checkbox" id="vis-dip"><label for="vis-dip"><span class="custom-checkbox"></span>数字图像处理 <span class="details">参考:《数字图像处理》, python opencv</span></label></div>
+                            <ul>
+                                <li><div class="item-content"><input type="checkbox" id="vis-dip1"><label for="vis-dip1"><span class="custom-checkbox"></span>数字图像基本概念 <span class="details">读写图像, 亮度增强</span></label></div>
+                                    <ul><li><div class="item-content"><input type="checkbox" id="vis-dip1-1"><label for="vis-dip1-1"><span class="custom-checkbox"></span>实验</label></div></li></ul>
+                                </li>
+                                <li><div class="item-content"><input type="checkbox" id="vis-dip2"><label for="vis-dip2"><span class="custom-checkbox"></span>频域处理 <span class="details">书第4章</span></label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="vis-dip3"><label for="vis-dip3"><span class="custom-checkbox"></span>彩色图像处理 <span class="details">书第6章, RGB</span></label></div>
+                                    <ul>
+                                        <li><div class="item-content"><input type="checkbox" id="vis-dip3-1"><label for="vis-dip3-1"><span class="custom-checkbox"></span>实验: 图像灰度化</label></div></li>
+                                        <li><div class="item-content"><input type="checkbox" id="vis-dip3-2"><label for="vis-dip3-2"><span class="custom-checkbox"></span>实验: 饱和度变换</label></div></li>
+                                    </ul>
+                                </li>
+                                <li><div class="item-content"><input type="checkbox" id="vis-dip4"><label for="vis-dip4"><span class="custom-checkbox"></span>形态学操作 <span class="details">书第9章</span></label></div></li>
+                                <li><div class="item-content"><input type="checkbox" id="vis-dip5"><label for="vis-dip5"><span class="custom-checkbox"></span>边缘检测 <span class="details">canny, sobel</span></label></div>
+                                    <ul><li><div class="item-content"><input type="checkbox" id="vis-dip5-1"><label for="vis-dip5-1"><span class="custom-checkbox"></span>实验: 细胞计数</label></div></li></ul>
+                                </li>
+                                <li><div class="item-content"><input type="checkbox" id="vis-dip6"><label for="vis-dip6"><span class="custom-checkbox"></span>卷积操作</label></div></li>
+                            </ul>
+                        </li>
+                        <li><div class="item-content"><input type="checkbox" id="vis-dl"><label for="vis-dl"><span class="custom-checkbox"></span>深度学习 <span class="details">参考:《动手学深度学习》</span></label></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 主题3: 深度学习 -->
+        <div id="flowchart-deeplearning" class="flowchart-content">
+            <ul class="mindmap">
+                 <li><div class="item-content"><input type="checkbox" id="dl-math"><label for="dl-math"><span class="custom-checkbox"></span><strong>数学基础</strong></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="dl-m1"><label for="dl-m1"><span class="custom-checkbox"></span>高等数学</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-m2"><label for="dl-m2"><span class="custom-checkbox"></span>线性代数</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-m3"><label for="dl-m3"><span class="custom-checkbox"></span>概率论</label></div></li>
+                    </ul>
+                </li>
+                <li><div class="item-content"><input type="checkbox" id="dl-ml"><label for="dl-ml"><span class="custom-checkbox"></span><strong>机器学习基础</strong></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="dl-ml1"><label for="dl-ml1"><span class="custom-checkbox"></span>线性回归</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-ml2"><label for="dl-ml2"><span class="custom-checkbox"></span>逻辑回归</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-ml3"><label for="dl-ml3"><span class="custom-checkbox"></span>决策树/随机森林</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-ml4"><label for="dl-ml4"><span class="custom-checkbox"></span>SVM</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-ml5"><label for="dl-ml5"><span class="custom-checkbox"></span>K-Means</label></div></li>
+                    </ul>
+                </li>
+                <li><div class="item-content"><input type="checkbox" id="dl-basics"><label for="dl-basics"><span class="custom-checkbox"></span><strong>深度学习基础</strong></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="dl-b1"><label for="dl-b1"><span class="custom-checkbox"></span>神经网络</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-b2"><label for="dl-b2"><span class="custom-checkbox"></span>反向传播</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-b3"><label for="dl-b3"><span class="custom-checkbox"></span>激活函数</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-b4"><label for="dl-b4"><span class="custom-checkbox"></span>损失函数</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-b5"><label for="dl-b5"><span class="custom-checkbox"></span>优化器</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-b6"><label for="dl-b6"><span class="custom-checkbox"></span>Pytorch/TensorFlow</label></div></li>
+                    </ul>
+                </li>
+                 <li><div class="item-content"><input type="checkbox" id="dl-advanced"><label for="dl-advanced"><span class="custom-checkbox"></span><strong>深度学习进阶</strong></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="dl-a1"><label for="dl-a1"><span class="custom-checkbox"></span>CNN</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-a2"><label for="dl-a2"><span class="custom-checkbox"></span>RNN/LSTM</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-a3"><label for="dl-a3"><span class="custom-checkbox"></span>Transformer<span class="details">非常重要</span></label></div></li>
+                         <li><div class="item-content"><input type="checkbox" id="dl-a4"><label for="dl-a4"><span class="custom-checkbox"></span>模型调参</label></div></li>
+                    </ul>
+                </li>
+                 <li><div class="item-content"><input type="checkbox" id="dl-frontiers"><label for="dl-frontiers"><span class="custom-checkbox"></span><strong>前沿方向</strong></label></div>
+                    <ul>
+                        <li><div class="item-content"><input type="checkbox" id="dl-f1"><label for="dl-f1"><span class="custom-checkbox"></span>CV (分类, 检测, 分割)</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-f2"><label for="dl-f2"><span class="custom-checkbox"></span>NLP (文本分类, 机器翻译)</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-f3"><label for="dl-f3"><span class="custom-checkbox"></span>多模态</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-f4"><label for="dl-f4"><span class="custom-checkbox"></span>AIGC (GAN, Diffusion, VAE)</label></div></li>
+                        <li><div class="item-content"><input type="checkbox" id="dl-f5"><label for="dl-f5"><span class="custom-checkbox"></span>强化学习</label></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="navigation-box">
+        <button data-target="flowchart-python" data-title="Python 基础" class="nav-button active">Python 基础</button>
+        <button data-target="flowchart-vision" data-title="图像视觉" class="nav-button">图像视觉</button>
+        <button data-target="flowchart-deeplearning" data-title="深度学习" class="nav-button">深度学习</button>
     </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // --- 进度保存逻辑 ---
-        const storageKeyPrefix = 'deep_learning_progress_';
-        let userId = localStorage.getItem('learning_map_userId');
+        // --- 元素获取 ---
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const navBox = document.querySelector('.navigation-box');
+        const mainTitle = document.getElementById('main-title');
+        
+        // --- 进度保存/加载逻辑 ---
+        const storageKeyPrefix = 'ai_universe_progress_';
+        let userId = localStorage.getItem('ai_universe_userId');
         if (!userId) {
             userId = 'user-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('learning_map_userId', userId);
+            localStorage.setItem('ai_universe_userId', userId);
         }
         const userProgressKey = storageKeyPrefix + userId;
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        
+
         function saveProgress() {
-            const currentProgress = {};
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    currentProgress[checkbox.id] = 'checked';
-                } else if (checkbox.indeterminate) {
-                    currentProgress[checkbox.id] = 'indeterminate';
-                }
+            const progress = {};
+            checkboxes.forEach(cb => {
+                if (cb.checked) progress[cb.id] = 'checked';
+                else if (cb.indeterminate) progress[cb.id] = 'indeterminate';
             });
-            localStorage.setItem(userProgressKey, JSON.stringify(currentProgress));
+            localStorage.setItem(userProgressKey, JSON.stringify(progress));
         }
 
         function loadProgress() {
-            const savedProgress = JSON.parse(localStorage.getItem(userProgressKey) || '{}');
-            checkboxes.forEach(checkbox => {
-                if (savedProgress[checkbox.id] === 'checked') {
-                    checkbox.checked = true;
-                    checkbox.indeterminate = false;
-                } else if (savedProgress[checkbox.id] === 'indeterminate') {
-                    checkbox.checked = false;
-                    checkbox.indeterminate = true;
-                } else {
-                    checkbox.checked = false;
-                    checkbox.indeterminate = false;
-                }
+            const progress = JSON.parse(localStorage.getItem(userProgressKey) || '{}');
+            checkboxes.forEach(cb => {
+                if (progress[cb.id] === 'checked') cb.checked = true;
+                else if (progress[cb.id] === 'indeterminate') cb.indeterminate = true;
             });
         }
         
         // --- 智能复选框逻辑 ---
         function handleCheckboxChange(e) {
-            const currentCheckbox = e.target;
-            const parentLi = currentCheckbox.closest('li');
-            const childCheckboxes = parentLi.querySelectorAll('ul input[type="checkbox"]');
-            childCheckboxes.forEach(child => {
-                child.checked = currentCheckbox.checked;
+            const current = e.target;
+            const parentLi = current.closest('li');
+            parentLi.querySelectorAll('ul input[type="checkbox"]').forEach(child => {
+                child.checked = current.checked;
                 child.indeterminate = false;
             });
-            updateParentState(currentCheckbox);
+            updateParentState(current);
             saveProgress();
         }
         
@@ -280,9 +304,9 @@
             const parentLi = checkbox.closest('ul')?.closest('li');
             if (!parentLi) return;
             const parentCheckbox = parentLi.querySelector('input[type="checkbox"]');
-            const siblingCheckboxes = Array.from(parentLi.querySelectorAll('ul > li > .item-content > input[type="checkbox"]'));
-            const allChecked = siblingCheckboxes.every(sibling => sibling.checked);
-            const noneChecked = siblingCheckboxes.every(sibling => !sibling.checked && !sibling.indeterminate);
+            const siblings = Array.from(parentLi.querySelectorAll('ul > li > .item-content > input[type="checkbox"]'));
+            const allChecked = siblings.every(s => s.checked);
+            const noneChecked = siblings.every(s => !s.checked && !s.indeterminate);
             if (allChecked) {
                 parentCheckbox.checked = true;
                 parentCheckbox.indeterminate = false;
@@ -290,20 +314,40 @@
                 parentCheckbox.checked = false;
                 parentCheckbox.indeterminate = false;
             } else {
-                parentCheckbox.checked = false;
                 parentCheckbox.indeterminate = true;
+                parentCheckbox.checked = false;
             }
             updateParentState(parentCheckbox);
         }
         
-        checkboxes.forEach(checkbox => checkbox.addEventListener('change', handleCheckboxChange));
+        // --- 导航栏切换逻辑 ---
+        navBox.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON') return;
+            const button = e.target;
+            const targetId = button.dataset.target;
+            const targetTitle = button.dataset.title;
+
+            document.querySelector('.nav-button.active').classList.remove('active');
+            button.classList.add('active');
+
+            document.querySelector('.flowchart-content.active').classList.remove('active');
+            document.getElementById(targetId).classList.add('active');
+            
+            mainTitle.textContent = targetTitle;
+            mainTitle.style.animation = 'none';
+            setTimeout(() => mainTitle.style.animation = '', 0); // 重启动画
+        });
+
+        // --- 初始化 ---
+        checkboxes.forEach(cb => cb.addEventListener('change', handleCheckboxChange));
         loadProgress();
-        checkboxes.forEach(updateParentState);
+        document.querySelectorAll('.flowchart-content').forEach(flowchart => {
+            flowchart.querySelectorAll('input[type="checkbox"]').forEach(updateParentState);
+        });
 
         // --- 彩虹猫雨逻辑 ---
         const rainContainer = document.getElementById('rain-container');
         const catImageUrl = 'https://media.tenor.com/OSvXx8hEwgcAAAAi/nyan-cat-cat.gif';
-
         function createCat() {
             const wrapper = document.createElement('div');
             wrapper.className = 'nyan-cat-wrapper';
@@ -326,7 +370,6 @@
             rainContainer.appendChild(wrapper);
             setTimeout(() => { wrapper.remove(); }, (randomDelay + randomDuration + 1) * 1000);
         }
-
         setInterval(createCat, 200);
     });
     </script>
